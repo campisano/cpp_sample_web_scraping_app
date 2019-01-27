@@ -1,6 +1,4 @@
 {
-    "scheduler":{"interval":1},
-    "downloader":{"URL":"https://www.bitstamp.net/api/ticker"},
     "repository":{
         "driver":"postgres",
         "host":"127.0.0.1",
@@ -8,5 +6,17 @@
         "username":"postgres",
         "password":"postgres",
         "database":"bitstampdb"
-    }
+    },
+    "downloads":[
+        {
+            "URL":"https://www.bitstamp.net/api/v2/ticker/btcusd/",
+            "interval":1500,
+            "parser":"bitstamp_v2"
+        },
+        {
+            "URL":"https://cex.io/api/ticker/BTC/USD/",
+            "interval":1500,
+            "parser":"cex"
+        }
+    ]
 }

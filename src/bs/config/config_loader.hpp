@@ -4,6 +4,12 @@
 #include <string>
 #include "config.hpp"
 
-Config loadConfig(std::string _filepath);
+class ConfigLoader
+{
+public:
+    explicit ConfigLoader() = delete;
+
+    static Config load(std::string _file_path);
+};
 
 #endif

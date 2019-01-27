@@ -5,39 +5,36 @@ class Ticket
 {
 public:
     explicit Ticket(
+        long _timestamp,
+        long _low,
         long _high,
         long _last,
-        long _timestamp,
         long _bid,
-        long _vwap,
-        long _volume,
-        long _low,
         long _ask,
-        long _open);
+        long _volume,
+        long _source);
+    Ticket(const Ticket &) = default;
+    Ticket(Ticket &&) = default;
     virtual ~Ticket();
 
-    bool operator ==(const Ticket & _other) const;
-
-    long high() const { return m_high; }
-    long last() const { return m_last; }
-    long timestamp() const { return m_timestamp; }
-    long bid() const { return m_bid; }
-    long vwap() const { return m_vwap; }
-    long volume() const { return m_volume; }
-    long low() const { return m_low; }
-    long ask() const { return m_ask; }
-    long open() const { return m_open; }
+    long timestamp() const;
+    long low() const;
+    long high() const;
+    long last() const;
+    long bid() const;
+    long ask() const;
+    long volume() const;
+    long source() const;
 
 private:
+    long m_timestamp;
+    long m_low;
     long m_high;
     long m_last;
-    long m_timestamp;
     long m_bid;
-    long m_vwap;
-    long m_volume;
-    long m_low;
     long m_ask;
-    long m_open;
+    long m_volume;
+    long m_source;
 };
 
 #endif

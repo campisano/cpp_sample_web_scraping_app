@@ -1,23 +1,51 @@
 #include "scheduler.hpp"
 
 #include <chrono>
-#include <thread>
 
-Scheduler::Scheduler(const SchedulerCfg & _config, Command & _command)
-    : m_config(_config), m_command(_command)
+Scheduler::Scheduler()
 {
+    m_to_continue = false;
 }
 
 Scheduler::~Scheduler()
 {
+    stop();
+}
+
+void Scheduler::add(std::unique_ptr<CommandRecurrence> _cmd_rec)
+{
+    m_runners.push_back(IntervalRunner{std::move(_cmd_rec), m_to_continue});
 }
 
 void Scheduler::run()
 {
-    while(true)
+    if(m_to_continue)
     {
-        m_command.execute();
-        std::this_thread::sleep_for(std::chrono::seconds(
-            m_config.interval()));
+        stop();
     }
+
+    m_to_continue = true;
+
+    for(auto & irn : m_runners)
+    {
+        m_threads.push_back(std::thread{&IntervalRunner::run, &irn});
+    }
+}
+
+void Scheduler::wait()
+{
+    for(auto & thr : m_threads)
+    {
+        if(thr.joinable())
+        {
+            thr.join();
+        }
+    }
+}
+
+void Scheduler::stop()
+{
+    m_to_continue = false;
+    wait();
+    m_threads.clear();
 }

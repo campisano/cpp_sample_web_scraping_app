@@ -17,7 +17,7 @@ LIB_DIRS =			ext/cpr/lib ext/sqlpp11/lib
 ROOT_BUILD_DIR =		build
 
 # CUSTOM libs for different targets
-RELEASE_LIBS =			cpr curl sqlpp11-connector-postgresql pq
+RELEASE_LIBS =			cpr curl sqlpp11-connector-postgresql pq pthread stdc++
 STATIC_LIBS =			$(RELEASE_LIBS)
 LIBRARY_LIBS =			$(RELEASE_LIBS)
 DEBUG_LIBS =			$(RELEASE_LIBS)

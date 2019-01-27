@@ -6,10 +6,10 @@
 PostgresDB::PostgresDB(const RepositoryCfg & _config)
 {
     auto config = std::make_shared<sqlpp::postgresql::connection_config>();
-    config->host = _config.host();
-    config->user = _config.username();
-    config->password = _config.password();
-    config->dbname = _config.database();
+    config->host = _config.host;
+    config->user = _config.username;
+    config->password = _config.password;
+    config->dbname = _config.database;
 
     m_conn.connectUsing(config);
 }

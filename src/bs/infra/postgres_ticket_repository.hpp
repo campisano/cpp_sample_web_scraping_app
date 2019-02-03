@@ -1,7 +1,6 @@
 #ifndef POSTGRES_TICKET_REPOSITORY__HPP__
 #define POSTGRES_TICKET_REPOSITORY__HPP__
 
-#include <mutex>
 #include "../repository/ticket_repository.hpp"
 #include "postgres_db.hpp"
 
@@ -17,7 +16,6 @@ public:
 
 private:
     PostgresDB & m_db;
-    std::mutex m_db_mutex;
 };
 
 #endif

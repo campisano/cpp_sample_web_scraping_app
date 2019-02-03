@@ -1,6 +1,7 @@
 #ifndef POSTGRES_DB__HPP__
 #define POSTGRES_DB__HPP__
 
+#include <memory>
 #include <sqlpp11/postgresql/connection.h>
 #include "../repository/repository.hpp"
 
@@ -12,13 +13,11 @@ public:
     PostgresDB(PostgresDB &&) = delete;
     virtual ~PostgresDB();
 
-    sqlpp::postgresql::connection & connection()
-    {
-        return m_conn;
-    }
+    std::shared_ptr<sqlpp::postgresql::connection> connection();
 
 private:
-    sqlpp::postgresql::connection m_conn;
+    struct data;
+    data & m_data;
 };
 
 #endif

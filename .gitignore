@@ -1,10 +1,16 @@
 /build
+
 /ext/src
 /ext/Makefile.inc
 /ext/cpr
 /ext/date
 /ext/json
 /ext/sqlpp11
+/ext/recycle
+
 /GPATH
 /GRTAGS
 /GTAGS
+
+/.cquery
+/.cquery_cached_index

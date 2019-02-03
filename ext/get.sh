@@ -43,3 +43,7 @@ mv src/sqlpp11-connector-postgresql-5e834b311484a2f59a94e555723fb579fd0d95d9 src
 fn_get json.hpp https://github.com/nlohmann/json/releases/download/v3.5.0/json.hpp
 mkdir json
 cp src/json.hpp json
+
+fn_get_zip https://github.com/steinwurf/recycle/archive/4.0.0.zip
+mkdir recycle
+cp -a src/recycle-4.0.0/src/recycle recycle

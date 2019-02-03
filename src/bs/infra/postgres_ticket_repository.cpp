@@ -43,13 +43,10 @@ void PostgresTicketRepository::insert(const Ticket & _ticket)
     auto statement = sqlpp::custom_query(sqlpp::verbatim(sql.str()))
                      .with_result_type_of(sqlpp::select(sqlpp::value(0).as(sqlpp::alias::a)));
 
-    // TODO connection pool or other solution is needed,
-    // mutex there is a workaround that works just for this method
-    std::lock_guard<std::mutex> lock(m_db_mutex);
-    auto & db = m_db.connection();
-    auto tx = start_transaction(db);
+    auto db = m_db.connection();
+    auto tx = start_transaction(*db.get());
 
-    for(const auto & row : db(statement))
+    for(const auto & row : (*db)(statement))
     {
         std::cout << "ID: " << row.a << std::endl;
     }

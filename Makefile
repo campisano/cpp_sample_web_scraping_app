@@ -7,7 +7,7 @@ SOURCE_EXT =			.cpp
 
 # CUSTOM paths
 INC_DIRS =			include
-INC_EXT_DIRS =			ext/cpr/include ext/sqlpp11/include ext/date/include /usr/include/postgresql ext/json
+INC_EXT_DIRS =			ext/cpr/include ext/sqlpp11/include ext/date/include /usr/include/postgresql ext/json ext/recycle
 FORMAT_INC_DIRS =		include
 SRC_DIRS =			src/bs
 TEST_SRC_DIRS =			src/test

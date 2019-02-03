@@ -16,7 +16,8 @@ int main(int, char **)
         auto repository = createRepository(config.repository);
         auto ticket_repository = createTicketRepository(*repository.get());
 
-        auto downloads = DownloadFactory::create(config.downloads, *ticket_repository);
+        auto downloads = DownloadFactory::create(
+                             config.downloads, *ticket_repository);
 
         Scheduler s;
 
@@ -24,7 +25,9 @@ int main(int, char **)
         {
             auto & d = downloads.front();
             s.add(std::unique_ptr<CommandRecurrence>(
-                      new CommandRecurrence{std::move(d.command), d.interval}));
+                      new CommandRecurrence
+            {
+                std::move(d.command), d.interval}));
             downloads.pop_front();
         }
 

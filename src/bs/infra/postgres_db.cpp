@@ -27,7 +27,7 @@ struct PostgresDB::data
             return conn;
         };
 
-        auto recycle = [](std::shared_ptr<Conn> c)
+        auto recycle = [](std::shared_ptr<Conn>)
         {
         };
 

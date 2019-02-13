@@ -80,13 +80,13 @@ LD_FLAGS :=			$(LIB_FLAGS)
 
 
 # CUSTOM specific flags for different targets
-RELEASE_FLAGS :=		-O3 -s									# optimization and remove all symbol table
+RELEASE_FLAGS :=		-O3 -s						# optimization and remove all symbol table
 RELEASE_LD_FLAGS :=
 STATIC_FLAGS :=			$(RELEASE_FLAGS)
 STATIC_LD_FLAGS :=		-static -static-libgcc -static-libstdc++
-DEBUG_FLAGS :=			-O0 -ggdb -g3 -fno-omit-frame-pointer					# disable optimization and increase debug level to 3, mantain frame pointer for 'prof' tool
+DEBUG_FLAGS :=			-O0 -ggdb -g3 -fno-omit-frame-pointer		# disable optimization and increase debug level to 3, mantain frame pointer for 'prof' tool
 DEBUG_LD_FLAGS :=
-PROFILE_FLAGS :=		-g -pg									# add 'gprof' tool info
+PROFILE_FLAGS :=		-g -pg						# add 'gprof' tool info
 PROFILE_LD_FLAGS :=		-pg
 TEST_FLAGS :=			$(DEBUG_FLAGS)
 TEST_LD_FLAGS :=		$(DEBUG_LD_FLAGS)
@@ -209,11 +209,11 @@ CHECK :=			&& echo $(GREEN)"DONE"$(NORMAL) || (echo $(RED)"==== ERROR ===="$(NOR
 # defining targets
 
 # multiple targets
-$(TARGETS):			| deps INFO_TRG INFO_CMDS format $(TARGET)                              # the targets after a | are executed in order even if parallel build (e.g. -j 10) is used
+$(TARGETS):			| deps INFO_TRG INFO_CMDS format $(TARGET)	# the targets after a | are executed in order even if parallel build (e.g. -j 10) is used
 
 # include dependencies that CXX will generate
 ifeq (0, $(words $(findstring $(MAKECMDGOALS), $(NODEPS_TARGETS))))
--include $(CXX_DEPS)											# include dependencies
+-include $(CXX_DEPS)								# include dependencies
 endif
 
 

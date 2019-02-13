@@ -39,12 +39,23 @@ fn_get_tgz()
 
 fn_build_cmake()
 {
-    SOURCE=$1; DEST=$2; CMAKE_ARGS=$3; MAKE_TARGET=$4; BASE_DIR=`pwd`
+    SRC=$1; DEST=$2; CMAKE_ARGS=$3; MAKE_ARGS=$4; BASE_DIR=`pwd`
     echo -e " * building \\033[1;33m${DEST}\\033[0;39m"
-    cd "${BASE_DIR}/${SOURCE}"
+    cd "${BASE_DIR}/${SRC}"
     rm -rf build && mkdir build && cd build
     cmake ${CMAKE_ARGS} "-DCMAKE_RULE_MESSAGES=OFF" "-DCMAKE_INSTALL_PREFIX=../../../${DEST}" ".." | grep -v -- '^-- ' || true
-    test \! -z "${MAKE_TARGET}" && make ${MAKE_TARGET} || make
+    test \! -z "${MAKE_ARGS}" && make --silent ${MAKE_ARGS} || make --silent
+    cd "${BASE_DIR}"
+    echo
+}
+
+fn_build_confmake()
+{
+    SRC=$1; DEST=$2; CONF_ARGS=$3; MAKE_ARGS=$4; BASE_DIR=`pwd`
+    echo -e " * building \\033[1;33m${DEST}\\033[0;39m"
+    cd "${BASE_DIR}/${SRC}"
+    ./configure --silent --prefix="${BASE_DIR}/${DEST}" ${CONF_ARGS}
+    test \! -z "${MAKE_ARGS}" && make --silent ${MAKE_ARGS} || make --silent
     cd "${BASE_DIR}"
     echo
 }

@@ -7,13 +7,13 @@ SOURCE_EXT :=			.cpp
 
 # CUSTOM paths
 INC_DIRS :=
-INC_EXT_DIRS :=			ext/cpr/include ext/sqlpp11/include ext/date/include /usr/include/postgresql ext/json ext/recycle
+INC_EXT_DIRS :=			/usr/include/postgresql external/cpr/include external/sqlpp11/include external/date/include external/json external/recycle
 FORMAT_INC_DIRS :=
 SRC_DIRS :=			src/bs
 TEST_SRC_DIRS :=
 FORMAT_SRC_DIRS :=		src
 MAIN_SRC :=			src/main.cpp
-LIB_DIRS :=			ext/cpr/lib ext/sqlpp11/lib
+LIB_DIRS :=			external/cpr/lib external/sqlpp11/lib
 ROOT_BUILD_DIR :=		build
 
 # CUSTOM libs for different targets
@@ -25,4 +25,4 @@ PROFILE_LIBS :=			$(RELEASE_LIBS)
 TEST_LIBS :=			$(RELEASE_LIBS)
 
 # finally, include the generic makefile
-include ext/Makefile.inc
+include external/Makefile.inc

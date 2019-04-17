@@ -1,12 +1,12 @@
 /build
 
-/ext/src
-/ext/Makefile.inc
-/ext/cpr
-/ext/date
-/ext/json
-/ext/sqlpp11
-/ext/recycle
+/external/src
+/external/Makefile.inc
+/external/cpr
+/external/date
+/external/json
+/external/sqlpp11
+/external/recycle
 
 /GPATH
 /GRTAGS

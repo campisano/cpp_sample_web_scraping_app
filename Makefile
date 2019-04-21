@@ -16,7 +16,7 @@ FORMAT_SRC_DIRS :=		src
 
 
 
-all: debug
+all:		debug
 
 
 .PHONY:		format
@@ -42,7 +42,7 @@ release:	format
 	make -C $(BUILD_PATH)/release;
 
 install:	release
-	make -C $(BUILD_PATH)/release $(MAKECMDGOALS);
+	make -C $(BUILD_PATH)/release install;
 
 install_debug:	debug
 	make -C $(BUILD_PATH)/debug install;

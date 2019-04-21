@@ -11,6 +11,6 @@ ExternalProject_Add(
     URL                     https://github.com/rbock/sqlpp11/archive/0.57.zip
     URL_HASH                MD5=05a88b8fd31acdbda29da0deb9742f79
     CONFIGURE_COMMAND       ${CMAKE_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext ${VAR_CMAKE_ARGS} -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install -DHinnantDate_ROOT_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../date/install -DENABLE_TESTS=OFF
-    BUILD_COMMAND           make --silent
-    INSTALL_COMMAND         make --silent install
+    BUILD_COMMAND           ${CMAKE_COMMAND} --build .
+    INSTALL_COMMAND         ${CMAKE_COMMAND} --build . --target install
     )

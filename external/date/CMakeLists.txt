@@ -11,8 +11,8 @@ ExternalProject_Add(
     URL                     https://github.com/HowardHinnant/date/archive/v2.4.1.zip
     URL_HASH                MD5=6bb7a7180339566bd36eaeb1785125de
     CONFIGURE_COMMAND       ${CMAKE_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext ${VAR_CMAKE_ARGS} -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install -DBUILD_SHARED_LIBS=ON
-    BUILD_COMMAND           make --silent
-    INSTALL_COMMAND         make --silent install
+    BUILD_COMMAND           ${CMAKE_COMMAND} --build .
+    INSTALL_COMMAND         ${CMAKE_COMMAND} --build . --target install
     )
 
 add_library(${VAR_NAME} SHARED IMPORTED)

@@ -6,5 +6,4 @@
 
 ## Dependencies
 
-apt-get install make cmake g++
-apt-get install libcurl4-openssl-dev libpq-dev
+```apt-get install make cmake g++ libcurl4-openssl-dev libpq-dev```

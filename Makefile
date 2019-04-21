@@ -1,28 +1,58 @@
-# CUSTOM output executable and lib files
-DEFAULT_TARGET :=		debug
-TARGET_EXEC :=			scraper
-TARGET_LIB :=
+# Generic Makefile.inc for CMake interface
+#
+# v 1.2
+
+
+
+# make options
+MAKEFLAGS +=			-s
+
+# vars
+BUILD_PATH :=			build
 HEADER_EXT :=			.hpp
 SOURCE_EXT :=			.cpp
-
-# CUSTOM paths
-INC_DIRS :=
-INC_EXT_DIRS :=			/usr/include/postgresql external/cpr/install/include external/sqlpp11/install/include external/sqlpp11-connector-postgresql/install/include external/date/install/include external/json/install external/recycle/install
 FORMAT_INC_DIRS :=
-SRC_DIRS :=			src/bs
-TEST_SRC_DIRS :=
 FORMAT_SRC_DIRS :=		src
-MAIN_SRC :=			src/main.cpp
-LIB_DIRS :=			external/cpr/install/lib external/sqlpp11-connector-postgresql/install/lib
-ROOT_BUILD_DIR :=		build
 
-# CUSTOM libs for different targets
-RELEASE_LIBS :=			cpr curl sqlpp11-connector-postgresql pq pthread stdc++
-STATIC_LIBS :=			$(RELEASE_LIBS)
-LIBRARY_LIBS :=			$(RELEASE_LIBS)
-DEBUG_LIBS :=			$(RELEASE_LIBS)
-PROFILE_LIBS :=			$(RELEASE_LIBS)
-TEST_LIBS :=			$(RELEASE_LIBS)
 
-# finally, include the generic makefile
-include external/Makefile.inc
+
+all: debug
+
+
+.PHONY:		format
+format:
+	command -v astyle >/dev/null 2>&1 \
+&& astyle --options=none --quiet --style=allman \
+--indent=spaces=4 --lineend=linux --align-pointer=middle \
+--pad-oper --pad-comma --unpad-paren \
+--add-brackets --convert-tabs --max-code-length=80 \
+--suffix=none \
+$(shell find $(FORMAT_INC_DIRS) $(FORMAT_SRC_DIRS) -type f \( -name \*$(HEADER_EXT) -o -name \*$(SOURCE_EXT) \)) \
+|| echo "Warning: can't find astyle executable";
+	#&& astyle --style=ansi -r -n "./*.h" "./*.cpp" || echo "Warning: can't find astyle executable!";
+
+debug:		format
+	mkdir -p $(BUILD_PATH)/debug;
+	cd $(BUILD_PATH)/debug; cmake ../.. -DCMAKE_BUILD_TYPE=debug;
+	make -C $(BUILD_PATH)/debug;
+
+release:	format
+	mkdir -p $(BUILD_PATH)/release;
+	cd $(BUILD_PATH)/release; cmake ../.. -DCMAKE_BUILD_TYPE=release;
+	make -C $(BUILD_PATH)/release;
+
+install:	release
+	make -C $(BUILD_PATH)/release $(MAKECMDGOALS);
+
+install_debug:	debug
+	make -C $(BUILD_PATH)/debug install;
+
+.PHONY:		clean
+clean:
+	test -d $(BUILD_PATH)/release && make -C $(BUILD_PATH)/release $(MAKECMDGOALS) || true;
+	test -d $(BUILD_PATH)/debug && make -C $(BUILD_PATH)/debug $(MAKECMDGOALS) || true;
+	test -d install/ && rm -f install/* || true;
+
+
+
+# End

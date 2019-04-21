@@ -11,6 +11,8 @@ addons:
             - make
             - cmake
             - g++-6
+            - libcurl4-openssl-dev
+            - libpq-dev
 script:
     - export CXX="g++-6"
     - make -e

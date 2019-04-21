@@ -13,15 +13,15 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/external/sqlpp11)
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql)
 
 include_directories(/usr/include/postgresql
-                    ${PROJECT_SOURCE_DIR}/external/cpr/install/include
-                    ${PROJECT_SOURCE_DIR}/external/date/install/include
-                    ${PROJECT_SOURCE_DIR}/external/json/install
-                    ${PROJECT_SOURCE_DIR}/external/recycle/install
-                    ${PROJECT_SOURCE_DIR}/external/sqlpp11/install/include
-                    ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/include)
+    ${PROJECT_SOURCE_DIR}/external/cpr/install/include
+    ${PROJECT_SOURCE_DIR}/external/date/install/include
+    ${PROJECT_SOURCE_DIR}/external/json/install
+    ${PROJECT_SOURCE_DIR}/external/recycle/install
+    ${PROJECT_SOURCE_DIR}/external/sqlpp11/install/include
+    ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/include)
 
 link_directories(${PROJECT_SOURCE_DIR}/external/cpr/install/lib
-                 ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
+    ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
 
 file(GLOB_RECURSE var_sources ${PROJECT_SOURCE_DIR}/src/bs/*.cpp)
 set(var_sources ${var_sources} ${PROJECT_SOURCE_DIR}/src/main.cpp)

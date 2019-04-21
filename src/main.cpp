@@ -4,7 +4,7 @@
 
 #include "bs/config/config_loader.hpp"
 #include "bs/download/download_factory.hpp"
-#include "bs/infra/db.hpp"
+#include "bs/infrastructure/db.hpp"
 #include "bs/scheduler/scheduler.hpp"
 
 int main(int, char **)

@@ -1,44 +1,36 @@
 #!/bin/bash
 
-echo "NOTE: this require the follow O.S. installed dependencies"
-echo "      libcurl4-openssl-dev (for HTTP REST calls)"
-echo "      libpq-dev            (for Database connection)"
+set -o errtrace -o pipefail
 
-source deps_utils.rc
+fn_abort()
+{
+    ERRCODE=$?
+    echo >&2 "Error code '${ERRCODE}' executing ${BASH_COMMAND} on line ${BASH_LINENO[0]}"
+    exit ${ERRCODE}
+}
+
+trap fn_abort ERR
+
+fn_get()
+{
+    DEST=$1; URL=$2; BASE_DIR=`pwd`
+    echo -e " * getting \\033[1;33m${URL}\\033[0;39m"
+    mkdir -p "${BASE_DIR}/src"
+    cd "${BASE_DIR}/src"
+    curl -L "${URL}" -o "${DEST}" --progress-bar
+    cd "${BASE_DIR}"
+}
+
+fn_get_zip()
+{
+    URL=$1; BASE_DIR=`pwd`
+    fn_get tmp.zip "${URL}"
+    cd "${BASE_DIR}/src"
+    unzip -q tmp.zip && rm -f tmp.zip
+    cd "${BASE_DIR}"
+}
 
 # GenericMakefile
 rm -f src/GenericMakefile-master Makefile.inc
 fn_get_zip https://codeload.github.com/campisano/GenericMakefile/zip/master
 cp -a src/GenericMakefile-master/Makefile.inc .
-
-# CPR
-rm -rf src/cpr-1.3.0 cpr
-fn_get_zip https://github.com/whoshuu/cpr/archive/1.3.0.zip
-fn_build_cmake "src/cpr-1.3.0" "cpr" "-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11 -DUSE_SYSTEM_CURL=ON -DBUILD_CPR_TESTS=OFF" ""
-mkdir cpr && cp -a src/cpr-1.3.0/include cpr && cp -a src/cpr-1.3.0/build/lib cpr
-
-# Date
-rm -rf src/date-2.4.1 date
-fn_get_zip https://github.com/HowardHinnant/date/archive/v2.4.1.zip
-fn_build_cmake "src/date-2.4.1" "date" "-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_MESSAGE=NEVER -DBUILD_SHARED_LIBS=ON" "install"
-
-# Sqlpp11
-rm -rf src/sqlpp11-0.57 sqlpp11
-fn_get_zip https://github.com/rbock/sqlpp11/archive/0.57.zip
-fn_build_cmake "src/sqlpp11-0.57" "sqlpp11" "-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_MESSAGE=NEVER -DHinnantDate_ROOT_DIR=../../../date -DENABLE_TESTS=OFF" "install"
-
-# Sqlpp11 postgresql
-rm -rf src/sqlpp11-connector-postgresql_5e834b3
-fn_get_zip https://codeload.github.com/matthijs/sqlpp11-connector-postgresql/zip/5e834b311484a2f59a94e555723fb579fd0d95d9
-mv src/sqlpp11-connector-postgresql-5e834b311484a2f59a94e555723fb579fd0d95d9 src/sqlpp11-connector-postgresql_5e834b3
-fn_build_cmake "src/sqlpp11-connector-postgresql_5e834b3" "sqlpp11" "-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_MESSAGE=NEVER -DHinnantDate_ROOT_DIR=../../../date -DPostgreSQL_TYPE_INCLUDE_DIR=/usr/include/postgresql -DENABLE_TESTS=OFF" "install"
-
-# Json
-rm -rf src/json.hpp json
-fn_get json.hpp https://github.com/nlohmann/json/releases/download/v3.5.0/json.hpp
-mkdir json && cp src/json.hpp json
-
-# Recycle
-rm -rf src/recycle-4.0.0/src/recycle recycle
-fn_get_zip https://github.com/steinwurf/recycle/archive/4.0.0.zip
-mkdir recycle && cp -a src/recycle-4.0.0/src/recycle recycle

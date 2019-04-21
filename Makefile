@@ -7,13 +7,13 @@ SOURCE_EXT :=			.cpp
 
 # CUSTOM paths
 INC_DIRS :=
-INC_EXT_DIRS :=			/usr/include/postgresql external/cpr/include external/sqlpp11/include external/date/include external/json external/recycle
+INC_EXT_DIRS :=			/usr/include/postgresql external/cpr/install/include external/sqlpp11/install/include external/sqlpp11-connector-postgresql/install/include external/date/install/include external/json/install external/recycle/install
 FORMAT_INC_DIRS :=
 SRC_DIRS :=			src/bs
 TEST_SRC_DIRS :=
 FORMAT_SRC_DIRS :=		src
 MAIN_SRC :=			src/main.cpp
-LIB_DIRS :=			external/cpr/lib external/sqlpp11/lib
+LIB_DIRS :=			external/cpr/install/lib external/sqlpp11-connector-postgresql/install/lib
 ROOT_BUILD_DIR :=		build
 
 # CUSTOM libs for different targets

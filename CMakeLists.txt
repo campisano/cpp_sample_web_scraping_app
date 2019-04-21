@@ -23,14 +23,14 @@ include_directories(/usr/include/postgresql
 link_directories(${PROJECT_SOURCE_DIR}/external/cpr/install/lib
                  ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
 
-find_library(var_cpr NAMES cpr PATHS ${PROJECT_SOURCE_DIR}/external/cpr/install/lib)
-find_library(var_sqlpg NAMES sqlpp11-connector-postgresql PATHS ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
-
 file(GLOB_RECURSE var_sources ${PROJECT_SOURCE_DIR}/src/bs/*.cpp)
 set(var_sources ${var_sources} ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
 add_executable(${var_target} ${var_sources})
-target_link_libraries(${var_target} ${var_cpr} ${var_sqlpg} curl pq pthread stdc++)
-add_dependencies(${var_target} cpr date json recycle sqlpp11 sqlpp11-connector-postgresql)
+add_dependencies(${var_target} cpr_ext json_ext recycle_ext sqlpp11-connector-postgresql_ext)
+add_dependencies(sqlpp11-connector-postgresql_ext sqlpp11_ext date_ext)
+add_dependencies(sqlpp11_ext date_ext)
+
+target_link_libraries(${var_target} cpr sqlpp11-connector-postgresql curl pq pthread stdc++)
 
 install(TARGETS ${var_target} DESTINATION ${PROJECT_SOURCE_DIR}/install)

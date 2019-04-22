@@ -3,7 +3,8 @@
 
 #include <memory>
 #include <sqlpp11/postgresql/connection.h>
-#include "../repository/repository.hpp"
+#include "../config/repository_cfg.hpp"
+#include "../../repository/repository.hpp"
 
 class PostgresDB : public Repository
 {

@@ -3,9 +3,9 @@
 
 #include <memory>
 #include <string>
-#include "../scheduler/command.hpp"
-#include "../serializer/ticket_parser.hpp"
-#include "../repository/ticket_repository.hpp"
+#include "../schedule/command.hpp"
+#include "../serialize/ticket_parser.hpp"
+#include "../../repository/ticket_repository.hpp"
 
 class TicketDownloader : public Command
 {

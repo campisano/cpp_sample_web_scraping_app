@@ -2,7 +2,13 @@
 
 ---
 
-# C++ sample application
+
+
+# C++ sample REST application
+
+An application developed to show a sample solution in c++11 to provide and consume REST API and store data in a RDBMS.
+
+
 
 ## Dependencies
 

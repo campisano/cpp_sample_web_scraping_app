@@ -2,10 +2,10 @@
 #include <stdexcept>
 #include <string>
 
-#include "bs/config/config_loader.hpp"
-#include "bs/download/download_factory.hpp"
-#include "bs/infrastructure/db.hpp"
-#include "bs/scheduler/scheduler.hpp"
+#include "scraper/infrastructure/config/config_loader.hpp"
+#include "scraper/infrastructure/database/db.hpp"
+#include "scraper/infrastructure/download/download_factory.hpp"
+#include "scraper/infrastructure/schedule/scheduler.hpp"
 
 int main(int, char **)
 {

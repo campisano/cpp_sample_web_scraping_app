@@ -1,6 +1,6 @@
 #include "download_factory.hpp"
 
-#include "../serializer/parser_factory.hpp"
+#include "../serialize/parser_factory.hpp"
 #include "ticket_downloader.hpp"
 
 std::list<CommandRecurrence> DownloadFactory::create(const

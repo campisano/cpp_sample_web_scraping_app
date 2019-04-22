@@ -9,5 +9,5 @@ services:
     ports:
     - 5432:5432
     environment:
-    - DB_NAME=bitstampdb
+    - DB_NAME=scraperdb
     - PG_PASSWORD=postgres

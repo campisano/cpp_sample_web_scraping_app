@@ -23,7 +23,7 @@ include_directories(/usr/include/postgresql
 link_directories(${PROJECT_SOURCE_DIR}/external/cpr/install/lib
     ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
 
-file(GLOB_RECURSE var_sources ${PROJECT_SOURCE_DIR}/src/bs/*.cpp)
+file(GLOB_RECURSE var_sources ${PROJECT_SOURCE_DIR}/src/scraper/*.cpp)
 set(var_sources ${var_sources} ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
 add_executable(${var_target} ${var_sources})

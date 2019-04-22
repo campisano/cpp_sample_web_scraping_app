@@ -2,7 +2,7 @@
 #define TICKET_PARSER__HPP__
 
 #include <string>
-#include "../domain/ticket.hpp"
+#include "../../domain/ticket.hpp"
 
 class TicketParser
 {

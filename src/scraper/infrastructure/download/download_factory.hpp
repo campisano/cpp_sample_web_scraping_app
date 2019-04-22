@@ -4,8 +4,8 @@
 #include <list>
 #include <vector>
 #include "../config/download_cfg.hpp"
-#include "../repository/ticket_repository.hpp"
-#include "../scheduler/command_recurrence.hpp"
+#include "../../repository/ticket_repository.hpp"
+#include "../schedule/command_recurrence.hpp"
 
 class DownloadFactory
 {

@@ -1,10 +1,10 @@
-#include "postgres_ticket_repository.hpp"
+#include "postgresql_ticket_repository.hpp"
 
 #include <sstream>
 #include <sqlpp11/sqlpp11.h>
 
-PostgresTicketRepository::PostgresTicketRepository(
-    PostgresDB & _db) : m_db(_db)
+PostgresqlTicketRepository::PostgresqlTicketRepository(
+    PostgresqlRepository & _db) : m_db(_db)
 {
     /*
     CREATE TABLE ticket(
@@ -21,11 +21,11 @@ PostgresTicketRepository::PostgresTicketRepository(
     */
 }
 
-PostgresTicketRepository::~PostgresTicketRepository()
+PostgresqlTicketRepository::~PostgresqlTicketRepository()
 {
 }
 
-void PostgresTicketRepository::insert(const Ticket & _ticket)
+void PostgresqlTicketRepository::insert(const Ticket & _ticket)
 {
     std::stringstream sql;
     sql << "INSERT INTO ticket ("
@@ -41,7 +41,8 @@ void PostgresTicketRepository::insert(const Ticket & _ticket)
         << _ticket.source() << ") RETURNING id;";
 
     auto statement = sqlpp::custom_query(sqlpp::verbatim(sql.str()))
-                     .with_result_type_of(sqlpp::select(sqlpp::value(0).as(sqlpp::alias::a)));
+                     .with_result_type_of(
+                         sqlpp::select(sqlpp::value(0).as(sqlpp::alias::a)));
 
     auto db = m_db.connection();
     auto tx = start_transaction(*db.get());

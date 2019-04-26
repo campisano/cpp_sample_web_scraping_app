@@ -7,6 +7,22 @@
 #include "scraper/infrastructure/download/download_factory.hpp"
 #include "scraper/infrastructure/schedule/scheduler.hpp"
 
+//#include "scraper/infrastructure/rest/hello.hpp"
+
+
+#include <pistache/endpoint.h>
+
+using namespace Pistache;
+
+struct HelloHandler : public Http::Handler
+{
+    HTTP_PROTOTYPE(HelloHandler)
+    void onRequest(const Http::Request &, Http::ResponseWriter writer) override
+    {
+        writer.send(Http::Code::Ok, "Hello, World!");
+    }
+};
+
 int main(int, char **)
 {
     try
@@ -34,6 +50,7 @@ int main(int, char **)
         }
 
         s.run();
+        Http::listenAndServe<HelloHandler>("*:9080");
         s.wait();
     }
     catch(std::exception const & _ex)

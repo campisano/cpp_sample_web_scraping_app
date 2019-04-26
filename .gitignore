@@ -1,16 +1,12 @@
 /build
 
-/external/cpr
+/external
 !/external/cpr/CMakeLists.txt
-/external/date
 !/external/date/CMakeLists.txt
-/external/json
 !/external/json/CMakeLists.txt
-/external/recycle
+!/external/pistache/CMakeLists.txt
 !/external/recycle/CMakeLists.txt
-/external/sqlpp11
 !/external/sqlpp11/CMakeLists.txt
-/external/sqlpp11-connector-postgresql
 !/external/sqlpp11-connector-postgresql/CMakeLists.txt
 
 /GPATH

@@ -18,8 +18,19 @@ int main(int, char **)
         auto ticket_repository = PostgresqlFactory::createTicketRepository(
                                      *repository.get());
 
-        auto downloads = DownloadFactory::create(
-                             config.downloads, *ticket_repository);
+        std::list<CommandRecurrence> downloads;
+
+        for(const auto & dwn : config.downloads)
+        {
+            downloads.push_back(CommandRecurrence
+            {
+                std::unique_ptr<Command>(
+                    DownloadFactory::createTicketDownloader(
+                        dwn,
+                        *ticket_repository)),
+                dwn.interval
+            });
+        }
 
         Scheduler s;
 

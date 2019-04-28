@@ -1,7 +1,7 @@
 #include "bitstamp_ticket_parser.hpp"
 
-#include <json.hpp>
 #include <iostream>
+#include <json.hpp>
 
 Ticket BitstampTicketParser::parse(std::string _data)
 {

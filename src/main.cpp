@@ -3,8 +3,8 @@
 #include <string>
 
 #include "scraper/infrastructure/config/config_loader.hpp"
-#include "scraper/infrastructure/repository/postgresql/postgresql_factory.hpp"
 #include "scraper/infrastructure/download/download_factory.hpp"
+#include "scraper/infrastructure/repository/postgresql/postgresql_factory.hpp"
 #include "scraper/infrastructure/schedule/scheduler.hpp"
 
 int main(int, char **)

@@ -1,7 +1,7 @@
 #include "cex_ticket_parser.hpp"
 
-#include <json.hpp>
 #include <iostream>
+#include <json.hpp>
 
 Ticket CexTicketParser::parse(std::string _data)
 {

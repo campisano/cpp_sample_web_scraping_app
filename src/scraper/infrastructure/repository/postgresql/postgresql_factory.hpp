@@ -2,9 +2,9 @@
 #define POSTGRESQL_FACTORY__HPP__
 
 #include <memory>
+#include "../repository.hpp"
 #include "../../config/repository_cfg.hpp"
-#include "../../../repository/repository.hpp"
-#include "../../../repository/ticket_repository.hpp"
+#include "../../../domain/repositories/ticket_repository.hpp"
 
 class PostgresqlFactory
 {

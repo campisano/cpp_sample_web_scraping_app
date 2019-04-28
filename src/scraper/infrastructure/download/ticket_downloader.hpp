@@ -5,7 +5,7 @@
 #include <string>
 #include "../schedule/command.hpp"
 #include "../serialize/ticket_parser.hpp"
-#include "../../repository/ticket_repository.hpp"
+#include "../../domain/repositories/ticket_repository.hpp"
 
 class TicketDownloader : public Command
 {

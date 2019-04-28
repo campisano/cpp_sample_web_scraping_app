@@ -1,7 +1,7 @@
 #ifndef TICKET_REPOSITORY__HPP__
 #define TICKET_REPOSITORY__HPP__
 
-#include "../domain/ticket.hpp"
+#include "../aggregates/tickets/ticket.hpp"
 
 class TicketRepository
 {

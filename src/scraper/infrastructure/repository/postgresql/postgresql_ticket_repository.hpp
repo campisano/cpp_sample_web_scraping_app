@@ -1,8 +1,8 @@
 #ifndef POSTGRESQL_TICKET_REPOSITORY__HPP__
 #define POSTGRESQL_TICKET_REPOSITORY__HPP__
 
-#include "../../../repository/ticket_repository.hpp"
 #include "postgresql_repository.hpp"
+#include "../../../domain/repositories/ticket_repository.hpp"
 
 class PostgresqlTicketRepository : public TicketRepository
 {

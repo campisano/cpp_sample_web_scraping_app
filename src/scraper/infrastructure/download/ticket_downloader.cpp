@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cpr/cpr.h>
-#include "../../domain/ticket.hpp"
+#include "../../domain/aggregates/tickets/ticket.hpp"
 
 TicketDownloader::TicketDownloader(
     std::string _URL,

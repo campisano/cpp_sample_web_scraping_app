@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2.3)
 
-set(var_target scraper)
-project(project_${var_target} LANGUAGES CXX)
+project(scraper LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -std=c++11 -fexceptions -pedantic -Wall -Wextra")
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/cpr)
@@ -23,14 +23,14 @@ include_directories(/usr/include/postgresql
 link_directories(${PROJECT_SOURCE_DIR}/external/cpr/install/lib
     ${PROJECT_SOURCE_DIR}/external/sqlpp11-connector-postgresql/install/lib)
 
-file(GLOB_RECURSE var_sources ${PROJECT_SOURCE_DIR}/src/scraper/*.cpp)
-set(var_sources ${var_sources} ${PROJECT_SOURCE_DIR}/src/main.cpp)
+file(GLOB_RECURSE VAR_SOURCES ${PROJECT_SOURCE_DIR}/src/scraper/*.cpp)
+set(VAR_SOURCES ${VAR_SOURCES} ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
-add_executable(${var_target} ${var_sources})
-add_dependencies(${var_target} cpr_ext json_ext recycle_ext sqlpp11-connector-postgresql_ext)
+add_executable(${PROJECT_NAME} ${VAR_SOURCES})
+add_dependencies(${PROJECT_NAME} cpr_ext json_ext recycle_ext sqlpp11-connector-postgresql_ext)
 add_dependencies(sqlpp11-connector-postgresql_ext sqlpp11_ext date_ext)
 add_dependencies(sqlpp11_ext date_ext)
 
-target_link_libraries(${var_target} cpr sqlpp11-connector-postgresql curl pq pthread stdc++)
+target_link_libraries(${PROJECT_NAME} PUBLIC pthread stdc++ cpr sqlpp11-connector-postgresql curl pq)
 
-install(TARGETS ${var_target} DESTINATION ${PROJECT_SOURCE_DIR}/install)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${PROJECT_SOURCE_DIR}/install)

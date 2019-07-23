@@ -11,3 +11,20 @@ services:
     environment:
     - DB_NAME=scraperdb
     - PG_PASSWORD=postgres
+
+  flyway:
+    image: boxfuse/flyway:5.2.4
+    container_name: flyway
+    hostname: flyway
+    depends_on:
+    - postgres
+    volumes:
+    - ./resources/db/migration/:/data
+    - ./resources/db/migrate.sh:/migrate.sh
+    environment:
+    - DB_HOST=postgres
+    - DB_PORT=5432
+    - DB_NAME=scraperdb
+    - DB_USER=postgres
+    - DB_PWRD=postgres
+    entrypoint: ["/bin/sh", "/migrate.sh"]

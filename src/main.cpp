@@ -11,7 +11,7 @@ int main(int, char **)
 {
     try
     {
-        auto config = ConfigLoader::load("config.json");
+        auto config = ConfigLoader::load("resources/config.json");
 
         auto repository = PostgresqlFactory::createRepositorySource(
                               config.repository);

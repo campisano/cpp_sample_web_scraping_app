@@ -6,19 +6,6 @@
 PostgresqlTicketRepository::PostgresqlTicketRepository(
     PostgresqlRepositorySource & _db) : m_db(_db)
 {
-    /*
-    CREATE TABLE ticket(
-      id BIGSERIAL PRIMARY KEY,
-      timestamp BIGINT NOT NULL,
-      low BIGINT NOT NULL,
-      high BIGINT NOT NULL,
-      last BIGINT NOT NULL,
-      bid BIGINT NOT NULL,
-      ask BIGINT NOT NULL,
-      volume BIGINT NOT NULL,
-      source BIGINT NOT NULL
-    );
-    */
 }
 
 PostgresqlTicketRepository::~PostgresqlTicketRepository()

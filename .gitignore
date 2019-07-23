@@ -1,21 +1,23 @@
 /build
 
-/external/cpr
+/external/cpr/*
 !/external/cpr/CMakeLists.txt
-/external/date
+/external/date/*
 !/external/date/CMakeLists.txt
-/external/json
+/external/json/*
 !/external/json/CMakeLists.txt
-/external/recycle
+/external/recycle/*
 !/external/recycle/CMakeLists.txt
-/external/sqlpp11
+/external/sqlpp11/*
 !/external/sqlpp11/CMakeLists.txt
-/external/sqlpp11-connector-postgresql
+/external/sqlpp11-connector-postgresql/*
 !/external/sqlpp11-connector-postgresql/CMakeLists.txt
-
-/GPATH
-/GRTAGS
-/GTAGS
+/external/asio/*
+!/external/asio/CMakeLists.txt
+/external/kashmir/*
+!/external/kashmir/CMakeLists.txt
+/external/restbed/*
+!/external/restbed/CMakeLists.txt
 
 /.cquery
 /.cquery_cached_index

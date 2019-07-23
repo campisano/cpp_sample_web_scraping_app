@@ -22,7 +22,8 @@ Config ConfigLoader::load(std::string _filepath)
     std::vector<DownloadCfg> down_cfg;
     for(const auto & dwn : j["downloads"])
     {
-        down_cfg.push_back(DownloadCfg{dwn["URL"], dwn["interval"], dwn["parser"]});
+        down_cfg.push_back(
+            DownloadCfg{dwn["URL"], dwn["interval"], dwn["parser"]});
     }
 
     return Config{repo_cfg, down_cfg};

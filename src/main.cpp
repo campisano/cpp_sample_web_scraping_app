@@ -13,7 +13,7 @@ int main(int, char **)
     {
         auto config = ConfigLoader::load("config.json");
 
-        auto repository = PostgresqlFactory::createRepository(
+        auto repository = PostgresqlFactory::createRepositorySource(
                               config.repository);
         auto ticket_repository = PostgresqlFactory::createTicketRepository(
                                      *repository.get());

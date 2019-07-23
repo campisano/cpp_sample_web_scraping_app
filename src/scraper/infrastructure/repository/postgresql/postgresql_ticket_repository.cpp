@@ -4,7 +4,7 @@
 #include <sqlpp11/sqlpp11.h>
 
 PostgresqlTicketRepository::PostgresqlTicketRepository(
-    PostgresqlRepository & _db) : m_db(_db)
+    PostgresqlRepositorySource & _db) : m_db(_db)
 {
     /*
     CREATE TABLE ticket(

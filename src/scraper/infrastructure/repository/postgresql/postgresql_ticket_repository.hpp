@@ -13,6 +13,7 @@ public:
     virtual ~PostgresqlTicketRepository();
 
     virtual void insert(const Ticket & _ticket);
+    virtual std::vector<Ticket> getAll();
 
 private:
     PostgresqlRepositorySource & m_db;

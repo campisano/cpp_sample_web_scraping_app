@@ -17,6 +17,8 @@ public:
     Ticket(Ticket &&) = default;
     virtual ~Ticket();
 
+    Ticket & operator=(const Ticket &) = default;
+
     long timestamp() const;
     long low() const;
     long high() const;

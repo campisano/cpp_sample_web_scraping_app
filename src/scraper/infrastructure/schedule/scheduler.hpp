@@ -16,7 +16,7 @@ public:
     virtual ~Scheduler();
 
     void add(std::unique_ptr<CommandRecurrence> _cmd_rec);
-    void run();
+    void start();
     void wait();
     void stop();
 

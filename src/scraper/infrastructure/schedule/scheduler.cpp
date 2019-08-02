@@ -17,7 +17,7 @@ void Scheduler::add(std::unique_ptr<CommandRecurrence> _cmd_rec)
     m_runners.push_back(IntervalRunner{std::move(_cmd_rec), m_to_continue});
 }
 
-void Scheduler::run()
+void Scheduler::start()
 {
     if(m_to_continue)
     {

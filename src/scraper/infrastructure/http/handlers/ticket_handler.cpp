@@ -3,40 +3,6 @@
 #include <json.hpp>
 #include <string>
 
-// TODO[cmp] put this elsewhere
-void to_json(nlohmann::json & _j, const Ticket & _t)
-{
-    _j = nlohmann::json
-    {
-        {"timestamp", _t.timestamp()},
-        {"low", _t.low()},
-        {"high", _t.high()},
-        {"last", _t.last()},
-        {"bid", _t.bid()},
-        {"ask", _t.ask()},
-        {"volume", _t.volume()},
-        {"source", _t.source()}};
-}
-
-void from_json(const nlohmann::json & _j, Ticket & _t)
-{
-    _t = Ticket(
-             _j.at("timestamp").get<long>(),
-             _j.at("low").get<long>(),
-             _j.at("high").get<long>(),
-             _j.at("last").get<long>(),
-             _j.at("bid").get<long>(),
-             _j.at("ask").get<long>(),
-             _j.at("volume").get<long>(),
-             _j.at("source").get<long>()
-         );
-}
-
-
-
-
-
-
 TicketHandler::TicketHandler(TicketAPI & _ticket_api) :
     m_ticket_api(_ticket_api)
 {
@@ -57,7 +23,17 @@ void TicketHandler::getTickets(
     nlohmann::json json = nlohmann::json::array();
     for(auto t : tickets)
     {
-        json.push_back(t);
+        json.push_back(
+        {
+            {"timestamp", t.timestamp()},
+            {"low", t.low()},
+            {"high", t.high()},
+            {"last", t.last()},
+            {"bid", t.bid()},
+            {"ask", t.ask()},
+            {"volume", t.volume()},
+            {"source", t.source()}
+        });
     }
 
     std::string body = json.dump();

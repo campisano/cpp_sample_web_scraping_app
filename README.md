@@ -1,4 +1,4 @@
-###### *Tests:* linux: [![Build Status](https://travis-ci.org/campisano/STSM.svg?branch=master "Linux build")](https://travis-ci.org/campisano/STSM)
+###### *Tests:* linux: [![Build Status](https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Linux build")](https://travis-ci.org/campisano/cpp_sample_web_scraping_app)
 
 ---
 
@@ -8,8 +8,21 @@
 
 An application developed to show a sample solution in c++11 to provide and consume REST API and store data in a RDBMS.
 
+A docker-compose.yml is provided to rapidly have a local database ready to test the project.
 
 
-## Dependencies
+
+# Usage
+
+* Dependencies
 
 ```apt-get install make cmake g++ libcurl4-openssl-dev libpq-dev```
+
+* Build
+
+```make```
+
+* Run
+
+```docker-compose up -d```
+```./build/debug/scraper```

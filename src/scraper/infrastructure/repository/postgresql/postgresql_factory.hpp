@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "../repository_source.hpp"
-#include "../../config/repository_cfg.hpp"
+#include "../../../application/config/repository_cfg.hpp"
 #include "../../../domain/repositories/ticket_repository.hpp"
 
 class PostgresqlFactory

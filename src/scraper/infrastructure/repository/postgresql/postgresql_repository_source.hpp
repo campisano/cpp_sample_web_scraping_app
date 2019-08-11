@@ -4,7 +4,7 @@
 #include <memory>
 #include <sqlpp11/postgresql/connection.h>
 #include "../repository_source.hpp"
-#include "../../config/repository_cfg.hpp"
+#include "../../../application/config/repository_cfg.hpp"
 
 class PostgresqlRepositorySource : public RepositorySource
 {

@@ -1,10 +1,10 @@
-#include "config_loader.hpp"
+#include "json_config_loader.hpp"
 
 #include <fstream>
 #include <json.hpp>
 #include <string>
 
-Config ConfigLoader::load(std::string _filepath)
+Config JsonConfigLoader::load(std::string _filepath)
 {
     std::ifstream config_file(_filepath);
     nlohmann::json j = nlohmann::json::parse(config_file);

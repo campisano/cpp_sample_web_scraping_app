@@ -7,9 +7,7 @@
 class ConfigLoader
 {
 public:
-    explicit ConfigLoader() = delete;
-
-    static Config load(std::string _file_path);
+    virtual Config load(std::string _file_path) = 0;
 };
 
 #endif

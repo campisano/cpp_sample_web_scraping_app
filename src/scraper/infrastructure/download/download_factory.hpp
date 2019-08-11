@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "ticket_downloader.hpp"
-#include "../config/download_cfg.hpp"
+#include "../../application/config/download_cfg.hpp"
 #include "../../domain/repositories/ticket_repository.hpp"
 
 class DownloadFactory

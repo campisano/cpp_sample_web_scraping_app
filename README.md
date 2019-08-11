@@ -12,7 +12,7 @@ A docker-compose.yml is provided to rapidly have a local database ready to test 
 
 
 
-# Usage
+## Usage
 
 * Dependencies
 
@@ -25,4 +25,5 @@ A docker-compose.yml is provided to rapidly have a local database ready to test 
 * Run
 
 ```docker-compose up -d```
+
 ```./build/debug/scraper```

@@ -3,8 +3,8 @@
 #include <json.hpp>
 #include <string>
 
-TicketHandler::TicketHandler(TicketAPI & _ticket_api) :
-    m_ticket_api(_ticket_api)
+TicketHandler::TicketHandler(GetTickets & _get_tickets) :
+    m_get_tickets(_get_tickets)
 {
 }
 
@@ -19,7 +19,7 @@ void TicketHandler::getTickets(
 {
     std::string type = "application/json";
 
-    auto tickets = m_ticket_api.getTickets();
+    auto tickets = m_get_tickets.getTickets();
     nlohmann::json json = nlohmann::json::array();
     for(auto t : tickets)
     {

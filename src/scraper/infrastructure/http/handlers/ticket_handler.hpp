@@ -4,12 +4,12 @@
 #include <memory>
 #include <restbed>
 
-#include "../../../domain/api/ticket_api.hpp"
+#include "../../../application/usecases/get_tickets.hpp"
 
 class TicketHandler
 {
 public:
-    explicit TicketHandler(TicketAPI & _ticket_api);
+    explicit TicketHandler(GetTickets & _get_tickets);
     TicketHandler(const TicketHandler &) = default;
     TicketHandler(TicketHandler &&) = default;
     virtual ~TicketHandler();
@@ -17,7 +17,7 @@ public:
     void getTickets(const std::shared_ptr< restbed::Session > _session);
 
 private:
-    TicketAPI & m_ticket_api;
+    GetTickets & m_get_tickets;
 };
 
 #endif

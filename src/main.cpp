@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "scraper/domain/api/ticket_api.hpp"
+#include "scraper/application/usecases/get_tickets.hpp"
 #include "scraper/infrastructure/config/json_config_loader.hpp"
 #include "scraper/infrastructure/download/download_factory.hpp"
 #include "scraper/infrastructure/http/handlers/error_handler.hpp"
@@ -55,8 +55,8 @@ int main(int, char **)
 
         ErrorHandler eh;
         HealthHandler hh;
-        TicketAPI ticket_api(*ticket_repository);
-        TicketHandler th(ticket_api);
+        GetTickets get_tickets(*ticket_repository);
+        TicketHandler th(get_tickets);
 
         HttpServer http_server;
         http_server.notFound(

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2.3)
 
-INCLUDE(ExternalProject)
+include(ExternalProject)
 
 set(VAR_NAME sqlpp11-connector-postgresql)
 set(VAR_CMAKE_BASE_ARGS -DCMAKE_RULE_MESSAGES=OFF -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11)

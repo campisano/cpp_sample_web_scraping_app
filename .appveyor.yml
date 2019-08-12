@@ -7,9 +7,6 @@ init:
 build_script:
 - cmd: >-
     mkdir build
-
     cd build
-
-    cmake "-G%GENERATOR%" -DBUILD_SSL=NO -DOPENSSL_ROOT_DIR=C:\OpenSSL-Win64 ..
-
-    cmake --build . --target ALL_BUILD --config "%CONFIG%"
+    cmake -G "Visual Studio 14 2015" -DBUILD_SSL=NO -DOPENSSL_ROOT_DIR=C:\OpenSSL-Win64 ..
+    cmake --build . --target ALL_BUILD --config Release

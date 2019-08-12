@@ -10,5 +10,5 @@ build_script:
     dir c:\OpenSSL-Win64
     if not exist c:\project\build md c:\project\build
     cd c:\project\build
-    cmake -G "Visual Studio 14 2015" -DCMAKE_CXX_FLAGS="-I\"/OpenSSL-Win64/include\"" ..
+    cmake -G "Visual Studio 14 2015" -DOPENSSL_ROOT_DIR="C:\OpenSSL-Win64" ..
     cmake --build . --target ALL_BUILD --config Release

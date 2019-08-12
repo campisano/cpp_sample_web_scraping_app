@@ -7,8 +7,8 @@ init:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 build_script:
 - cmd: |-
-    dir /OpenSSL-Win64
-    if not exist c:\project\build md C:\project\build
+    dir c:\OpenSSL-Win64
+    if not exist c:\project\build md c:\project\build
     cd c:\project\build
     cmake -G "Visual Studio 14 2015" -DCMAKE_CXX_FLAGS="-I\"/OpenSSL-Win64/include\"" ..
     cmake --build . --target ALL_BUILD --config Release

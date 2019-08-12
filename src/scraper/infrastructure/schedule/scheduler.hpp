@@ -12,7 +12,7 @@ class Scheduler
 public:
     explicit Scheduler();
     Scheduler(const Scheduler &) = delete;
-    Scheduler(Scheduler &&) = delete;
+    Scheduler(Scheduler &&) = default;
     virtual ~Scheduler();
 
     void add(std::unique_ptr<CommandRecurrence> _cmd_rec);

@@ -8,6 +8,11 @@
 class HttpServer
 {
 public:
+    explicit HttpServer();
+    HttpServer(const HttpServer &) = delete;
+    HttpServer(HttpServer &&) = default;
+    virtual ~HttpServer();
+
     void notFound(
         const std::function <void (
             const std::shared_ptr< restbed::Session >)
@@ -31,7 +36,7 @@ public:
 private:
     void handle_startup_message(restbed::Service &);
 
-    restbed::Service m_service;
+    std::unique_ptr<restbed::Service> m_service;
     std::unique_ptr<std::thread> m_thread_service;
 };
 

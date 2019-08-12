@@ -12,6 +12,11 @@
 #include "scraper/infrastructure/repository/postgresql/postgresql_factory.hpp"
 #include "scraper/infrastructure/schedule/scheduler.hpp"
 
+Scheduler startScheduler(
+    Config & _config, TicketRepository & _ticket_repository);
+HttpServer startHttpServer(
+    Config & _config, TicketRepository & _ticket_repository);
+
 int main(int, char **)
 {
     try
@@ -25,55 +30,11 @@ int main(int, char **)
         auto ticket_repository = PostgresqlFactory::createTicketRepository(
                                      *repository.get());
 
-        std::list<CommandRecurrence> downloads;
-
-        for(const auto & dwn : config.downloads)
-        {
-            downloads.push_back(CommandRecurrence
-            {
-                std::unique_ptr<Command>(
-                    DownloadFactory::createTicketDownloader(
-                        dwn,
-                        *ticket_repository)),
-                dwn.interval
-            });
-        }
-
-        Scheduler scheduler;
-
-        while(!downloads.empty())
-        {
-            auto & d = downloads.front();
-            scheduler.add(std::unique_ptr<CommandRecurrence>(
-                              new CommandRecurrence
-            {
-                std::move(d.command), d.interval}));
-            downloads.pop_front();
-        }
-
-        scheduler.start();
-
-        ErrorHandler eh;
-        HealthHandler hh;
-        GetTickets get_tickets(*ticket_repository);
-        TicketHandler th(get_tickets);
-
-        HttpServer http_server;
-        http_server.notFound(
-            std::bind(&ErrorHandler::notFound, eh, std::placeholders::_1));
-        http_server.route(
-            "/health", "GET",
-            std::bind(&HealthHandler::handle, hh, std::placeholders::_1));
-        http_server.route(
-            "/tickets", "GET",
-            std::bind(&TicketHandler::getTickets, th, std::placeholders::_1));
-        http_server.start("127.0.0.1", 8080, 2);
+        auto scheduler = startScheduler(config, *ticket_repository);
+        auto http_server = startHttpServer(config, *ticket_repository);
 
         scheduler.wait();
         http_server.wait();
-
-        return EXIT_SUCCESS;
-
     }
     catch(std::exception const & _ex)
     {
@@ -81,5 +42,62 @@ int main(int, char **)
         throw;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
+}
+
+Scheduler startScheduler(
+    Config & _config, TicketRepository & _ticket_repository)
+{
+    std::list<CommandRecurrence> downloads;
+
+    for(const auto & dwn : _config.downloads)
+    {
+        downloads.push_back(CommandRecurrence
+        {
+            std::unique_ptr<Command>(
+                DownloadFactory::createTicketDownloader(
+                    dwn,
+                    _ticket_repository)),
+            dwn.interval
+        });
+    }
+
+    Scheduler scheduler;
+
+    while(!downloads.empty())
+    {
+        auto & d = downloads.front();
+        scheduler.add(std::unique_ptr<CommandRecurrence>(
+                          new CommandRecurrence
+        {
+            std::move(d.command), d.interval}));
+        downloads.pop_front();
+    }
+
+    scheduler.start();
+
+    return scheduler;
+}
+
+HttpServer startHttpServer(
+    Config & _config, TicketRepository & _ticket_repository)
+{
+    ErrorHandler eh;
+    HealthHandler hh;
+    GetTickets get_tickets(_ticket_repository);
+    TicketHandler th(get_tickets);
+
+    HttpServer http_server;
+    http_server.notFound(
+        std::bind(&ErrorHandler::notFound, eh, std::placeholders::_1));
+    http_server.route(
+        "/health", "GET",
+        std::bind(&HealthHandler::handle, hh, std::placeholders::_1));
+    http_server.route(
+        "/tickets", "GET",
+        std::bind(&TicketHandler::getTickets, th, std::placeholders::_1));
+
+    http_server.start("127.0.0.1", 8080, 2);
+
+    return http_server;
 }

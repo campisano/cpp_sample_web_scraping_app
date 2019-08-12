@@ -9,6 +9,7 @@ build_script:
 - cmd: |-
     dir c:\OpenSSL-Win64
     setx OPENSSL_ROOT_DIR "C:\OpenSSL-Win64"
+    set OPENSSL_ROOT_DIR="C:\OpenSSL-Win64"
     set
     if not exist c:\project\build md c:\project\build
     cd c:\project\build

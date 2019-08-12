@@ -7,11 +7,7 @@ init:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 build_script:
 - cmd: |-
-    dir c:\OpenSSL-Win64
-    setx OPENSSL_ROOT_DIR "C:\OpenSSL-Win64"
-    set OPENSSL_ROOT_DIR="C:\OpenSSL-Win64"
-    set
     if not exist c:\project\build md c:\project\build
     cd c:\project\build
-    cmake -G "Visual Studio 14 2015" ..
+    cmake -G "Visual Studio 14 2015" -DOPENSSL_ROOT_DIR="C:\OpenSSL-Win64" -DOPENSSL_LIBRARIES="C:\OpenSSL-Win64\lib" ..
     cmake --build . --target ALL_BUILD --config Release

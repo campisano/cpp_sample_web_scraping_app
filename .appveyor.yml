@@ -2,6 +2,7 @@ version: '{build}'
 image: Visual Studio 2015
 configuration: Release
 platform: x64
+
 init:
   - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 

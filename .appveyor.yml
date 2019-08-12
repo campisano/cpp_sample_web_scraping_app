@@ -2,12 +2,12 @@ version: '{build}'
 image: Visual Studio 2015
 configuration: Release
 platform: x64
-clone_folder: C:\project
+clone_folder: %TEMP%/project
 init:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 build_script:
 - cmd: >-
-    if not exist c:\project\build mkdir c:\project\build
-    cd c:\project\build
+    if not exist %TEMP%\project\build mkdir %TEMP%\project\build
+    cd %TEMP%\project\build
     cmake -G "Visual Studio 14 2015" -DCMAKE_CXX_FLAGS="-I\"/OpenSSL-Win64\"" ..
     cmake --build . --target ALL_BUILD --config Release

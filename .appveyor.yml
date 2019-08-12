@@ -1,15 +1,16 @@
 version: '{build}'
-
-image: Visual Studio 2017
-
-environment:
-  matrix:
-    - GENERATOR: "Visual Studio 14"
-      CONFIG: Debug
-
-    - GENERATOR: "Visual Studio 15 Win64"
-      CONFIG: Release
+image: Visual Studio 2015
+configuration: Release
+platform: x64
+init:
+  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 
 build_script:
-  - cmake "-G%GENERATOR%" -H. -B_builds -DENABLE_TESTING=1
-  - cmake --build _builds --config "%CONFIG%"
+  - cmd: >-
+    mkdir build
+
+    cd build
+
+    cmake "-G%GENERATOR%" -DBUILD_SSL=NO -DOPENSSL_ROOT_DIR=C:\OpenSSL-Win64 ..
+
+    cmake --build . --target ALL_BUILD --config "%CONFIG%"

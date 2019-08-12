@@ -9,5 +9,5 @@ build_script:
 - cmd: >-
     mkdir c:\project\build
     cd c:\project\build
-    cmake -G "Visual Studio 14 2015" -DBUILD_SSL=NO -DOPENSSL_ROOT_DIR=C:\OpenSSL-Win64 ..
+    cmake -G "Visual Studio 14 2015" -DCMAKE_CXX_FLAGS="-I\"/OpenSSL-Win64\"" ..
     cmake --build . --target ALL_BUILD --config Release

@@ -6,7 +6,7 @@ clone_folder: '%TEMP%\project'
 init:
 - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"'
 build_script:
-- cmd: |-4
+- cmd: |-
     if not exist %TEMP%\project\build md %TEMP%\project\build
     cd %TEMP%\project\build
     cmake -G "Visual Studio 14 2015" -DCMAKE_CXX_FLAGS="-I\"/OpenSSL-Win64\"" ..

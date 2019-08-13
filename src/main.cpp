@@ -15,7 +15,7 @@
 Scheduler startScheduler(
     Config & _config, TicketRepository & _ticket_repository);
 HttpServer startHttpServer(
-    Config & _config, TicketRepository & _ticket_repository);
+    HttpConfig & _config, TicketRepository & _ticket_repository);
 
 int main(int, char **)
 {
@@ -31,7 +31,7 @@ int main(int, char **)
                                      *repository.get());
 
         auto scheduler = startScheduler(config, *ticket_repository);
-        auto http_server = startHttpServer(config, *ticket_repository);
+        auto http_server = startHttpServer(config.http, *ticket_repository);
 
         scheduler.wait();
         http_server.wait();
@@ -80,7 +80,7 @@ Scheduler startScheduler(
 }
 
 HttpServer startHttpServer(
-    Config & _config, TicketRepository & _ticket_repository)
+    HttpConfig & _config, TicketRepository & _ticket_repository)
 {
     ErrorHandler eh;
     HealthHandler hh;
@@ -97,7 +97,7 @@ HttpServer startHttpServer(
         "/tickets", "GET",
         std::bind(&TicketHandler::getTickets, th, std::placeholders::_1));
 
-    http_server.start("127.0.0.1", 8080, 2);
+    http_server.start(_config.host, _config.port, _config.threads);
 
     return http_server;
 }

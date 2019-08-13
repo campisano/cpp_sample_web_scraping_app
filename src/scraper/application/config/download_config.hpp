@@ -1,9 +1,9 @@
-#ifndef DOWNLOAD_CFG__HPP__
-#define DOWNLOAD_CFG__HPP__
+#ifndef DOWNLOAD_CONFIG__HPP__
+#define DOWNLOAD_CONFIG__HPP__
 
 #include <string>
 
-struct DownloadCfg
+struct DownloadConfig
 {
     std::string URL;
     long interval;

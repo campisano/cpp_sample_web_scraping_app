@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "../repository_source.hpp"
-#include "../../../application/config/repository_cfg.hpp"
+#include "../../../application/config/repository_config.hpp"
 #include "../../../domain/repositories/ticket_repository.hpp"
 
 class PostgresqlFactory
@@ -12,7 +12,7 @@ public:
     explicit PostgresqlFactory() = delete;
 
     static std::unique_ptr<RepositorySource> createRepositorySource(
-        const RepositoryCfg & _config);
+        const RepositoryConfig & _config);
 
     static std::unique_ptr<TicketRepository> createTicketRepository(
         RepositorySource & _repo);

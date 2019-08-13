@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "ticket_downloader.hpp"
-#include "../../application/config/download_cfg.hpp"
+#include "../../application/config/download_config.hpp"
 #include "../../domain/repositories/ticket_repository.hpp"
 
 class DownloadFactory
@@ -12,7 +12,7 @@ public:
     explicit DownloadFactory() = delete;
 
     static std::unique_ptr<TicketDownloader> createTicketDownloader(
-        const DownloadCfg & _config, TicketRepository & _repo);
+        const DownloadConfig & _config, TicketRepository & _repo);
 };
 
 #endif

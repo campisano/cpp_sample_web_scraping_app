@@ -4,12 +4,12 @@
 #include <memory>
 #include <sqlpp11/postgresql/connection.h>
 #include "../repository_source.hpp"
-#include "../../../application/config/repository_cfg.hpp"
+#include "../../../application/config/repository_config.hpp"
 
 class PostgresqlRepositorySource : public RepositorySource
 {
 public:
-    explicit PostgresqlRepositorySource(const RepositoryCfg & _config);
+    explicit PostgresqlRepositorySource(const RepositoryConfig & _config);
     PostgresqlRepositorySource(const PostgresqlRepositorySource &) = delete;
     PostgresqlRepositorySource(PostgresqlRepositorySource &&) = delete;
     virtual ~PostgresqlRepositorySource();

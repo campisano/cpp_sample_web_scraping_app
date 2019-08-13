@@ -1,9 +1,9 @@
-#ifndef REPOSITORY_CFG__HPP__
-#define REPOSITORY_CFG__HPP__
+#ifndef REPOSITORY_CONFIG__HPP__
+#define REPOSITORY_CONFIG__HPP__
 
 #include <string>
 
-struct RepositoryCfg
+struct RepositoryConfig
 {
     std::string driver;
     std::string host;

@@ -4,7 +4,7 @@
 
 std::unique_ptr<TicketDownloader>
 DownloadFactory::createTicketDownloader(
-    const DownloadCfg & _config, TicketRepository & _repo)
+    const DownloadConfig & _config, TicketRepository & _repo)
 {
     return std::unique_ptr<TicketDownloader>(
                new TicketDownloader(

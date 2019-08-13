@@ -2,13 +2,15 @@
 #define CONFIG__HPP__
 
 #include <vector>
-#include "download_cfg.hpp"
-#include "repository_cfg.hpp"
+#include "download_config.hpp"
+#include "http_config.hpp"
+#include "repository_config.hpp"
 
 struct Config
 {
-    RepositoryCfg repository;
-    std::vector<DownloadCfg> downloads;
+    RepositoryConfig repository;
+    HttpConfig http;
+    std::vector<DownloadConfig> downloads;
 };
 
 #endif

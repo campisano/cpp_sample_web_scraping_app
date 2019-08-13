@@ -7,7 +7,7 @@
 #include "postgresql_ticket_repository.hpp"
 
 std::unique_ptr<RepositorySource> PostgresqlFactory::createRepositorySource(
-    const RepositoryCfg & _config)
+    const RepositoryConfig & _config)
 {
     if(_config.driver != "postgres")
     {

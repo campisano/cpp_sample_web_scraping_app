@@ -44,7 +44,7 @@ struct PostgresqlRepositorySource::data
 };
 
 PostgresqlRepositorySource::PostgresqlRepositorySource(
-    const RepositoryCfg & _config) : m_data(*new data())
+    const RepositoryConfig & _config) : m_data(*new data())
 {
     m_data.config = std::make_shared<sqlpp::postgresql::connection_config>();
     m_data.config->host = _config.host;

@@ -3,7 +3,7 @@
 #include <string>
 
 #include "scraper/application/usecases/get_tickets.hpp"
-#include "scraper/infrastructure/config/json_config_loader.hpp"
+#include "scraper/infrastructure/config/yaml_config_loader.hpp"
 #include "scraper/infrastructure/download/download_factory.hpp"
 #include "scraper/infrastructure/http/handlers/error_handler.hpp"
 #include "scraper/infrastructure/http/handlers/health_handler.hpp"
@@ -21,9 +21,9 @@ int main(int, char **)
 {
     try
     {
-        auto config_loader = std::unique_ptr<JsonConfigLoader>(
-                                 new JsonConfigLoader());
-        auto config = config_loader->load("resources/config.json");
+        auto config_loader = std::unique_ptr<YamlConfigLoader>(
+                                 new YamlConfigLoader());
+        auto config = config_loader->load("resources/config.yaml");
 
         auto repository = PostgresqlFactory::createRepositorySource(
                               config.repository);

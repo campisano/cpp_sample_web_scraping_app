@@ -30,7 +30,11 @@ Config JsonConfigLoader::load(std::string _filepath)
     for(const auto & dwn : j["downloads"])
     {
         down_cfg.push_back(
-            DownloadConfig{dwn["url"], dwn["interval"], dwn["parser"]});
+            DownloadConfig
+        {
+            dwn["url"].get<std::string>(),
+            dwn["interval"].get<int>(),
+            dwn["parser"].get<std::string>()});
     }
 
     return Config{repo_cfg, http_cfg, down_cfg};

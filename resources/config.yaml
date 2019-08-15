@@ -1,0 +1,19 @@
+---
+repository:
+  driver: "postgres"
+  host: "127.0.0.1"
+  port: 5432
+  username: "postgres"
+  password: "postgres"
+  database: "scraperdb"
+http:
+  host: "127.0.0.1"
+  port: 8080
+  threads: 2
+downloads:
+- url: "https://www.bitstamp.net/api/v2/ticker/btcusd/"
+  interval: 1500
+  parser: "bitstamp_v2"
+- url: "https://cex.io/api/ticker/BTC/USD/"
+  interval: 1500
+  parser: "cex"

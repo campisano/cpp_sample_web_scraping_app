@@ -2,7 +2,7 @@
 #define JSON_CONFIG_LOADER__HPP__
 
 #include <string>
-#include "../../application/config/config_loader.hpp"
+#include "config_loader.hpp"
 
 class JsonConfigLoader : public ConfigLoader
 {

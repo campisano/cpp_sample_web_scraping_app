@@ -2,7 +2,7 @@
 #define CONFIG_LOADER__HPP__
 
 #include <string>
-#include "config.hpp"
+#include "../../application/config/config.hpp"
 
 class ConfigLoader
 {

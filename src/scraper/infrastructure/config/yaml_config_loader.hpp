@@ -2,7 +2,7 @@
 #define YAML_CONFIG_LOADER__HPP__
 
 #include <string>
-#include "../../application/config/config_loader.hpp"
+#include "config_loader.hpp"
 
 class YamlConfigLoader : public ConfigLoader
 {

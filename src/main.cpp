@@ -3,6 +3,8 @@
 #include <string>
 
 #include "scraper/application/usecases/get_tickets.hpp"
+#include "scraper/infrastructure/config/config_loader_creator.hpp"
+#include "scraper/infrastructure/config/json_config_loader.hpp"
 #include "scraper/infrastructure/config/yaml_config_loader.hpp"
 #include "scraper/infrastructure/download/download_factory.hpp"
 #include "scraper/infrastructure/http/handlers/error_handler.hpp"
@@ -12,6 +14,7 @@
 #include "scraper/infrastructure/repository/postgresql/postgresql_factory.hpp"
 #include "scraper/infrastructure/schedule/scheduler.hpp"
 
+Config loadConfig(std::string _file_path);
 Scheduler startScheduler(
     Config & _config, TicketRepository & _ticket_repository);
 HttpServer startHttpServer(
@@ -21,9 +24,7 @@ int main(int, char **)
 {
     try
     {
-        auto config_loader = std::unique_ptr<YamlConfigLoader>(
-                                 new YamlConfigLoader());
-        auto config = config_loader->load("resources/config.yaml");
+        auto config = loadConfig("resources/config.yaml");
 
         auto repository = PostgresqlFactory::createRepositorySource(
                               config.repository);
@@ -43,6 +44,22 @@ int main(int, char **)
     }
 
     return EXIT_SUCCESS;
+}
+
+Config loadConfig(std::string _file_path)
+{
+    std::string ext;
+    auto idx = _file_path.rfind('.');
+
+    if(idx != std::string::npos && idx != _file_path.length())
+    {
+        ext = _file_path.substr(idx + 1);
+    }
+
+    ConfigLoaderCreator clc;
+    clc.put(std::unique_ptr<ConfigLoader>(new JsonConfigLoader()), "json");
+    clc.put(std::unique_ptr<ConfigLoader>(new YamlConfigLoader()), "yaml");
+    return clc.get(ext).load(_file_path);
 }
 
 Scheduler startScheduler(

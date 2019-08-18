@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.2.3)
 include(ExternalProject)
 
 set(VAR_NAME date)
-set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11)
-set(VAR_CMAKE_BASE_ARGS ${VAR_CMAKE_BASE_ARGS} -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
+set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
 
 ExternalProject_Add(
     ${VAR_NAME}_ext
@@ -17,5 +16,10 @@ ExternalProject_Add(
     INSTALL_COMMAND         ${CMAKE_COMMAND} --build . --target install
     )
 
-add_library(${VAR_NAME} SHARED IMPORTED)
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
+add_custom_target(${VAR_NAME}_target)
+add_dependencies(${VAR_NAME}_target ${VAR_NAME}_ext)
+
+add_library(${VAR_NAME} SHARED IMPORTED GLOBAL)
 set_target_properties(${VAR_NAME} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/libtz.so)
+add_dependencies(${VAR_NAME} ${VAR_NAME}_target)

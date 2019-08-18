@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.2.3)
 include(ExternalProject)
 
 set(VAR_NAME sqlpp11)
-set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=11)
-set(VAR_CMAKE_BASE_ARGS ${VAR_CMAKE_BASE_ARGS} -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
+set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
 
 ExternalProject_Add(
     ${VAR_NAME}_ext
@@ -16,3 +15,10 @@ ExternalProject_Add(
     BUILD_COMMAND           ${CMAKE_COMMAND} --build .
     INSTALL_COMMAND         ${CMAKE_COMMAND} --build . --target install
     )
+
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
+add_custom_target(${VAR_NAME}_target)
+add_dependencies(${VAR_NAME}_target ${VAR_NAME}_ext)
+
+add_library(${VAR_NAME} STATIC IMPORTED GLOBAL)
+add_dependencies(${VAR_NAME} date ${VAR_NAME}_target)

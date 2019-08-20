@@ -18,6 +18,10 @@ public:
     TicketDownloader(TicketDownloader &&) = delete;
     virtual ~TicketDownloader();
 
+    TicketDownloader & operator=(const TicketDownloader &) = delete;
+    TicketDownloader & operator=(TicketDownloader &&) = delete;
+
+public:
     virtual void execute();
 
 private:

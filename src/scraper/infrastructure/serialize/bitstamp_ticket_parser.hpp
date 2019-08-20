@@ -3,7 +3,7 @@
 
 #include "ticket_parser.hpp"
 
-class BitstampTicketParser : public  TicketParser
+class BitstampTicketParser : public TicketParser
 {
 public:
     explicit BitstampTicketParser() {}
@@ -11,6 +11,10 @@ public:
     BitstampTicketParser(BitstampTicketParser &&) = delete;
     virtual ~BitstampTicketParser() {}
 
+    BitstampTicketParser & operator=(const BitstampTicketParser &) = delete;
+    BitstampTicketParser & operator=(BitstampTicketParser &&) = delete;
+
+public:
     Ticket parse(std::string _data);
 };
 

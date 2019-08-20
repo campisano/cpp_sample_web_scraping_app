@@ -14,6 +14,12 @@ public:
     PostgresqlRepositorySource(PostgresqlRepositorySource &&) = delete;
     virtual ~PostgresqlRepositorySource();
 
+    PostgresqlRepositorySource & operator=(
+        const PostgresqlRepositorySource &) = delete;
+    PostgresqlRepositorySource & operator=(
+        PostgresqlRepositorySource &&) = delete;
+
+public:
     std::shared_ptr<sqlpp::postgresql::connection> connection();
 
 private:

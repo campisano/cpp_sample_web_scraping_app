@@ -21,7 +21,7 @@ void TicketHandler::getTickets(
 
     auto tickets = m_get_tickets.getTickets();
     nlohmann::json json = nlohmann::json::array();
-    for(auto t : tickets)
+    for(auto const & t : tickets)
     {
         json.push_back(
         {

@@ -13,12 +13,14 @@ public:
         long _ask,
         long _volume,
         long _source);
-    Ticket(const Ticket &) = default;
+    Ticket(const Ticket &) = delete;
     Ticket(Ticket &&) = default;
     virtual ~Ticket();
 
-    Ticket & operator=(const Ticket &) = default;
+    Ticket & operator=(const Ticket &) = delete;
+    Ticket & operator=(Ticket &&) = default;
 
+public:
     long timestamp() const;
     long low() const;
     long high() const;

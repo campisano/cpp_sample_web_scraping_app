@@ -3,7 +3,7 @@
 
 #include "ticket_parser.hpp"
 
-class CexTicketParser : public  TicketParser
+class CexTicketParser : public TicketParser
 {
 public:
     explicit CexTicketParser() {}
@@ -11,6 +11,10 @@ public:
     CexTicketParser(CexTicketParser &&) = delete;
     virtual ~CexTicketParser() {}
 
+    CexTicketParser & operator=(const CexTicketParser &) = delete;
+    CexTicketParser & operator=(CexTicketParser &&) = delete;
+
+public:
     Ticket parse(std::string _data);
 };
 

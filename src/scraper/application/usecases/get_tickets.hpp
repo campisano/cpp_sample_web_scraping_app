@@ -13,6 +13,10 @@ public:
     GetTickets(GetTickets &&) = delete;
     virtual ~GetTickets();
 
+    TicketRepository & operator=(const TicketRepository &) = delete;
+    TicketRepository & operator=(TicketRepository &&) = delete;
+
+public:
     std::vector<Ticket> getTickets();
 
 private:

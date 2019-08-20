@@ -15,6 +15,10 @@ public:
     Scheduler(Scheduler &&) = default;
     virtual ~Scheduler();
 
+    Scheduler & operator=(const Scheduler &) = delete;
+    Scheduler & operator=(Scheduler &&) = default;
+
+public:
     void add(std::unique_ptr<CommandRecurrence> _cmd_rec);
     void start();
     void wait();

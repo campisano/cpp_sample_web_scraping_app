@@ -12,6 +12,12 @@ public:
     PostgresqlTicketRepository(PostgresqlTicketRepository &&) = delete;
     virtual ~PostgresqlTicketRepository();
 
+    PostgresqlTicketRepository & operator=(
+        const PostgresqlTicketRepository &) = delete;
+    PostgresqlTicketRepository & operator=(
+        PostgresqlTicketRepository &&) = delete;
+
+public:
     virtual void insert(const Ticket & _ticket);
     virtual std::vector<Ticket> getAll();
 

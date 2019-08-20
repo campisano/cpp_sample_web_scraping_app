@@ -13,6 +13,10 @@ public:
     HttpServer(HttpServer &&) = default;
     virtual ~HttpServer();
 
+    HttpServer & operator=(const HttpServer &) = delete;
+    HttpServer & operator=(HttpServer &&) = default;
+
+public:
     void notFound(
         const std::function <void (
             const std::shared_ptr< restbed::Session >)

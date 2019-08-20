@@ -15,6 +15,10 @@ public:
     IntervalRunner(IntervalRunner &&) = default;
     virtual ~IntervalRunner();
 
+    IntervalRunner & operator=(const IntervalRunner &) = delete;
+    IntervalRunner & operator=(IntervalRunner &&) = default;
+
+public:
     void run();
 
 private:

@@ -1,25 +1,33 @@
-cmake_minimum_required(VERSION 3.2.3)
+cmake_minimum_required(VERSION 3.3.2)
 
 include(ExternalProject)
 
-set(VAR_NAME cpr)
-set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
+set(TARGET_NAME cpr)
 
 ExternalProject_Add(
-    ${VAR_NAME}_ext
+    ${TARGET_NAME}_external
     DOWNLOAD_DIR            ${CMAKE_CURRENT_SOURCE_DIR}/download
-    DOWNLOAD_NAME           ${VAR_NAME}.zip
+    DOWNLOAD_NAME           ${TARGET_NAME}.zip
     URL                     https://github.com/whoshuu/cpr/archive/1.3.0.zip
     URL_HASH                MD5=b7fd66e8e8f59801e264a3b927cc6e48
-    CONFIGURE_COMMAND       ${CMAKE_COMMAND} ${VAR_CMAKE_BASE_ARGS} -DUSE_SYSTEM_CURL=ON -DBUILD_CPR_TESTS=OFF
+    SOURCE_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
+    BINARY_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
+    INSTALL_DIR             ${CMAKE_CURRENT_SOURCE_DIR}/install
+    CONFIGURE_COMMAND       ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> -DCMAKE_CXX_STANDARD=11 -DUSE_SYSTEM_CURL=ON -DBUILD_CPR_TESTS=OFF
     BUILD_COMMAND           ${CMAKE_COMMAND} --build .
-    INSTALL_COMMAND         ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext/include ${CMAKE_CURRENT_SOURCE_DIR}/install/include && ${CMAKE_COMMAND} -E copy_directory  ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext-build/lib ${CMAKE_CURRENT_SOURCE_DIR}/install/lib
+    INSTALL_COMMAND         ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include && ${CMAKE_COMMAND} -E copy_directory <BINARY_DIR>/lib <INSTALL_DIR>/lib
     )
 
-set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
-add_custom_target(${VAR_NAME}_target)
-add_dependencies(${VAR_NAME}_target ${VAR_NAME}_ext)
+ExternalProject_Get_property(${TARGET_NAME}_external INSTALL_DIR)
+SET(${TARGET_NAME}_INCLUDE_DIRS ${INSTALL_DIR}/include CACHE STRING "")
+SET(${TARGET_NAME}_LIBRARIES ${INSTALL_DIR}/lib CACHE STRING "")
 
-add_library(${VAR_NAME} STATIC IMPORTED GLOBAL)
-set_target_properties(${VAR_NAME} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/libcpr.a)
-add_dependencies(${VAR_NAME} ${VAR_NAME}_target)
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
+add_custom_target(${TARGET_NAME}_clean_no_custom)
+add_dependencies(${TARGET_NAME}_clean_no_custom ${TARGET_NAME}_external)
+
+add_library(${TARGET_NAME} STATIC IMPORTED GLOBAL)
+set_target_properties(
+    ${TARGET_NAME} PROPERTIES
+    IMPORTED_LOCATION ${${TARGET_NAME}_LIBRARIES}/libcpr.a)
+add_dependencies(${TARGET_NAME} ${TARGET_NAME}_clean_no_custom)

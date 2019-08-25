@@ -1,24 +1,29 @@
-cmake_minimum_required(VERSION 3.2.3)
+cmake_minimum_required(VERSION 3.3.2)
 
 include(ExternalProject)
 
-set(VAR_NAME recycle)
-set(VAR_CMAKE_BASE_ARGS -DCMAKE_INSTALL_MESSAGE=NEVER -DCMAKE_CXX_STANDARD=11 -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/install ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext)
+set(TARGET_NAME recycle)
 
 ExternalProject_Add(
-    ${VAR_NAME}_ext
+    ${TARGET_NAME}_external
     DOWNLOAD_DIR            ${CMAKE_CURRENT_SOURCE_DIR}/download
-    DOWNLOAD_NAME           ${VAR_NAME}.zip
+    DOWNLOAD_NAME           ${TARGET_NAME}.zip
     URL                     https://github.com/steinwurf/recycle/archive/4.0.0.zip
     URL_HASH                MD5=c94ec0540f459b58666221c60a9df040
+    SOURCE_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
+    BINARY_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
+    INSTALL_DIR             ${CMAKE_CURRENT_SOURCE_DIR}/install
     CONFIGURE_COMMAND       ""
     BUILD_COMMAND           ""
-    INSTALL_COMMAND         ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${VAR_NAME}_ext-prefix/src/${VAR_NAME}_ext/src/recycle ${CMAKE_CURRENT_SOURCE_DIR}/install/recycle
+    INSTALL_COMMAND         ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/src/recycle <INSTALL_DIR>/include/recycle
     )
 
-set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
-add_custom_target(${VAR_NAME}_target)
-add_dependencies(${VAR_NAME}_target ${VAR_NAME}_ext)
+ExternalProject_Get_property(${TARGET_NAME}_external INSTALL_DIR)
+SET(${TARGET_NAME}_INCLUDE_DIRS ${INSTALL_DIR}/include CACHE STRING "")
 
-add_library(${VAR_NAME} STATIC IMPORTED GLOBAL)
-add_dependencies(${VAR_NAME} ${VAR_NAME}_target)
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
+add_custom_target(${TARGET_NAME}_clean_no_custom)
+add_dependencies(${TARGET_NAME}_clean_no_custom ${TARGET_NAME}_external)
+
+add_library(${TARGET_NAME} INTERFACE)
+add_dependencies(${TARGET_NAME} ${TARGET_NAME}_clean_no_custom)

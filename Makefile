@@ -1,6 +1,6 @@
 # Generic Makefile.inc for CMake interface
 #
-# v 1.2
+# v 1.2.1
 
 
 
@@ -49,9 +49,14 @@ install_debug:	debug
 
 .PHONY:		clean
 clean:
-	test -d $(BUILD_PATH)/release && make -C $(BUILD_PATH)/release $(MAKECMDGOALS) || true;
-	test -d $(BUILD_PATH)/debug && make -C $(BUILD_PATH)/debug $(MAKECMDGOALS) || true;
+	test -d $(BUILD_PATH)/release && make -C $(BUILD_PATH)/release clean || true;
+	test -d $(BUILD_PATH)/debug && make -C $(BUILD_PATH)/debug clean || true;
 	test -d install/ && rm -f install/* || true;
+
+.PHONY:		distclean
+distclean:	clean
+	test -d $(BUILD_PATH)/release && rm -rf $(BUILD_PATH)/release || true;
+	test -d $(BUILD_PATH)/debug && rm -rf $(BUILD_PATH)/debug || true;
 
 
 

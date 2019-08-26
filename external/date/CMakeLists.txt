@@ -21,7 +21,8 @@ ExternalProject_Add(
 
 ExternalProject_Get_property(${TARGET_NAME}_external INSTALL_DIR)
 SET(${TARGET_NAME}_INCLUDE_DIRS ${INSTALL_DIR}/include CACHE STRING "")
-SET(${TARGET_NAME}_LIBRARIES ${INSTALL_DIR}/lib CACHE STRING "")
+SET(${TARGET_NAME}_LIBRARY_DIRS ${INSTALL_DIR}/lib CACHE STRING "")
+SET(${TARGET_NAME}_LIBRARIES ${${TARGET_NAME}_LIBRARY_DIRS}/libtz.so CACHE STRING "")
 
 set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
 add_custom_target(${TARGET_NAME}_clean_no_custom)
@@ -30,5 +31,5 @@ add_dependencies(${TARGET_NAME}_clean_no_custom ${TARGET_NAME}_external)
 add_library(${TARGET_NAME} SHARED IMPORTED GLOBAL)
 set_target_properties(
     ${TARGET_NAME} PROPERTIES
-    IMPORTED_LOCATION ${${TARGET_NAME}_LIBRARIES}/libtz.so)
+    IMPORTED_LOCATION ${${TARGET_NAME}_LIBRARIES})
 add_dependencies(${TARGET_NAME} ${TARGET_NAME}_clean_no_custom)

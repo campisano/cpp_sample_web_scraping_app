@@ -16,7 +16,7 @@ A docker-compose.yml is provided to rapidly have a local database ready to test 
 
 * Dependencies
 
-```apt-get install make cmake g++ libcurl4-openssl-dev libpq-dev```
+```apt-get install gcc g++ make cmake libssl1.0-dev libcurl4-openssl-dev```
 
 * Build
 

@@ -15,6 +15,9 @@
 /external/kashmir/*
 !/external/kashmir/CMakeLists.txt
 
+/external/pq/*
+!/external/pq/CMakeLists.txt
+
 /external/recycle/*
 !/external/recycle/CMakeLists.txt
 

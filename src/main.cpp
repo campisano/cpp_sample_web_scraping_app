@@ -3,10 +3,10 @@
 #include <string>
 
 #include "scraper/application/usecases/get_tickets.hpp"
-#include "scraper/infrastructure/config/config_loader_creator.hpp"
 #include "scraper/infrastructure/config/json_config_loader.hpp"
 #include "scraper/infrastructure/config/yaml_config_loader.hpp"
 #include "scraper/infrastructure/download/download_factory.hpp"
+#include "scraper/infrastructure/factory/factory_store.hpp"
 #include "scraper/infrastructure/http/handlers/error_handler.hpp"
 #include "scraper/infrastructure/http/handlers/health_handler.hpp"
 #include "scraper/infrastructure/http/handlers/ticket_handler.hpp"
@@ -14,6 +14,10 @@
 #include "scraper/infrastructure/repository/postgresql/postgresql_factory.hpp"
 #include "scraper/infrastructure/schedule/scheduler.hpp"
 
+FactoryStore<ConfigLoader> cl_fs;
+FactoryStore<RepositoryFactory> rf_fs;
+
+void initFactories();
 Config loadConfig(std::string _file_path);
 Scheduler startScheduler(
     Config & _config, TicketRepository & _ticket_repository);
@@ -24,12 +28,15 @@ int main(int, char **)
 {
     try
     {
+        initFactories();
+
         auto config = loadConfig("resources/config.yaml");
 
-        auto repository = PostgresqlFactory::createRepositorySource(
-                              config.repository);
-        auto ticket_repository = PostgresqlFactory::createTicketRepository(
-                                     *repository.get());
+        auto & repository_factory = rf_fs.get(config.repository.driver);
+        auto repository_source = repository_factory.createRepositorySource(
+                                     config.repository);
+        auto ticket_repository = repository_factory.createTicketRepository(
+                                     *repository_source.get());
 
         auto scheduler = startScheduler(config, *ticket_repository);
         auto http_server = startHttpServer(config.http, *ticket_repository);
@@ -46,6 +53,15 @@ int main(int, char **)
     return EXIT_SUCCESS;
 }
 
+void initFactories()
+{
+    cl_fs.put(std::unique_ptr<ConfigLoader>(new JsonConfigLoader()), "json");
+    cl_fs.put(std::unique_ptr<ConfigLoader>(new YamlConfigLoader()), "yaml");
+
+    rf_fs.put(std::unique_ptr<RepositoryFactory>(
+                  new(PostgresqlFactory)), "postgres");
+}
+
 Config loadConfig(std::string _file_path)
 {
     std::string ext;
@@ -56,10 +72,7 @@ Config loadConfig(std::string _file_path)
         ext = _file_path.substr(idx + 1);
     }
 
-    ConfigLoaderCreator clc;
-    clc.put(std::unique_ptr<ConfigLoader>(new JsonConfigLoader()), "json");
-    clc.put(std::unique_ptr<ConfigLoader>(new YamlConfigLoader()), "yaml");
-    return clc.get(ext).load(_file_path);
+    return cl_fs.get(ext).load(_file_path);
 }
 
 Scheduler startScheduler(

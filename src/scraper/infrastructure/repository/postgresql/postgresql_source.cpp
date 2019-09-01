@@ -1,4 +1,4 @@
-#include "postgresql_repository_source.hpp"
+#include "postgresql_source.hpp"
 
 #include <mutex>
 #include <recycle/shared_pool.hpp>
@@ -6,7 +6,7 @@
 #include <sqlpp11/sqlpp11.h>
 #include <thread>
 
-struct PostgresqlRepositorySource::data
+struct PostgresqlSource::data
 {
     struct lock_policy
     {
@@ -43,7 +43,7 @@ struct PostgresqlRepositorySource::data
     Config config;
 };
 
-PostgresqlRepositorySource::PostgresqlRepositorySource(
+PostgresqlSource::PostgresqlSource(
     const RepositoryConfig & _config) : m_data(*new data())
 {
     m_data.config = std::make_shared<sqlpp::postgresql::connection_config>();
@@ -53,13 +53,12 @@ PostgresqlRepositorySource::PostgresqlRepositorySource(
     m_data.config->dbname = _config.database;
 }
 
-PostgresqlRepositorySource::~PostgresqlRepositorySource()
+PostgresqlSource::~PostgresqlSource()
 {
     delete & m_data;
 }
 
-std::shared_ptr<sqlpp::postgresql::connection>
-PostgresqlRepositorySource::connection()
+std::shared_ptr<sqlpp::postgresql::connection> PostgresqlSource::connection()
 {
     return m_data.pool->allocate();
 }

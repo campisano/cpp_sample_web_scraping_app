@@ -3,7 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "postgresql_repository_source.hpp"
+#include "postgresql_source.hpp"
 #include "postgresql_ticket_repository.hpp"
 
 std::unique_ptr<RepositorySource> PostgresqlFactory::createRepositorySource(
@@ -16,14 +16,13 @@ std::unique_ptr<RepositorySource> PostgresqlFactory::createRepositorySource(
         throw std::runtime_error(msg.str());
     }
 
-    return std::unique_ptr<RepositorySource>(
-               new PostgresqlRepositorySource(_config));
+    return std::unique_ptr<RepositorySource>(new PostgresqlSource(_config));
 }
 
 std::unique_ptr<TicketRepository> PostgresqlFactory::createTicketRepository(
     RepositorySource & _repo_src)
 {
-    if(dynamic_cast<PostgresqlRepositorySource *>(&_repo_src) == nullptr)
+    if(dynamic_cast<PostgresqlSource *>(&_repo_src) == nullptr)
     {
         std::stringstream msg;
         msg << "Unknown repository source specified ["
@@ -33,5 +32,5 @@ std::unique_ptr<TicketRepository> PostgresqlFactory::createTicketRepository(
 
     return std::unique_ptr<TicketRepository>(
                new PostgresqlTicketRepository(
-                   static_cast<PostgresqlRepositorySource &>(_repo_src)));
+                   static_cast<PostgresqlSource &>(_repo_src)));
 }

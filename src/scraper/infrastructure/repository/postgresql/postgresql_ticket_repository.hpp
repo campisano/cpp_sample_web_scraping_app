@@ -1,13 +1,13 @@
 #ifndef POSTGRESQL_TICKET_REPOSITORY__HPP__
 #define POSTGRESQL_TICKET_REPOSITORY__HPP__
 
-#include "postgresql_repository_source.hpp"
+#include "postgresql_source.hpp"
 #include "../../../domain/repositories/ticket_repository.hpp"
 
 class PostgresqlTicketRepository : public TicketRepository
 {
 public:
-    explicit PostgresqlTicketRepository(PostgresqlRepositorySource & _db);
+    explicit PostgresqlTicketRepository(PostgresqlSource & _db);
     PostgresqlTicketRepository(const PostgresqlTicketRepository &) = delete;
     PostgresqlTicketRepository(PostgresqlTicketRepository &&) = delete;
     virtual ~PostgresqlTicketRepository();
@@ -22,7 +22,7 @@ public:
     virtual std::vector<Ticket> getAll();
 
 private:
-    PostgresqlRepositorySource & m_db;
+    PostgresqlSource & m_db;
 };
 
 #endif

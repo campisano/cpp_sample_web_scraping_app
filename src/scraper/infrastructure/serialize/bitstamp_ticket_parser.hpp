@@ -6,10 +6,10 @@
 class BitstampTicketParser : public TicketParser
 {
 public:
-    explicit BitstampTicketParser() {}
+    explicit BitstampTicketParser() = default;
     BitstampTicketParser(const BitstampTicketParser &) = delete;
     BitstampTicketParser(BitstampTicketParser &&) = delete;
-    virtual ~BitstampTicketParser() {}
+    virtual ~BitstampTicketParser() = default;
 
     BitstampTicketParser & operator=(const BitstampTicketParser &) = delete;
     BitstampTicketParser & operator=(BitstampTicketParser &&) = delete;

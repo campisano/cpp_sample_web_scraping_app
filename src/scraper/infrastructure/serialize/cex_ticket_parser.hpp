@@ -6,10 +6,10 @@
 class CexTicketParser : public TicketParser
 {
 public:
-    explicit CexTicketParser() {}
+    explicit CexTicketParser() = default;
     CexTicketParser(const CexTicketParser &) = delete;
     CexTicketParser(CexTicketParser &&) = delete;
-    virtual ~CexTicketParser() {}
+    virtual ~CexTicketParser() = default;
 
     CexTicketParser & operator=(const CexTicketParser &) = delete;
     CexTicketParser & operator=(CexTicketParser &&) = delete;

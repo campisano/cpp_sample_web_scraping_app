@@ -4,7 +4,7 @@
 class RepositorySource
 {
 public:
-    virtual ~RepositorySource() {};
+    virtual ~RepositorySource() = default;
 };
 
 #endif

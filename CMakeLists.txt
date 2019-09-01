@@ -5,6 +5,7 @@ project(scraper LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_SKIP_RPATH ON)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set(
@@ -60,5 +61,5 @@ add_dependencies(${PROJECT_NAME} json recycle)
 
 target_link_libraries(
     ${PROJECT_NAME} PUBLIC stdc++ pthread
-    crypto ssl curl pq
-    cpr sqlpp11-connector-postgresql restbed yaml)
+    cpr curl restbed yaml sqlpp11-connector-postgresql pq
+    curl ssl crypto)

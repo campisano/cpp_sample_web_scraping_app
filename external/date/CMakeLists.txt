@@ -16,7 +16,6 @@ ExternalProject_Add(
     CONFIGURE_COMMAND       ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> -DCMAKE_CXX_STANDARD=11 -DBUILD_SHARED_LIBS=ON
     BUILD_COMMAND           ${CMAKE_COMMAND} --build .
     INSTALL_COMMAND         ${CMAKE_COMMAND} --build . --target install
-    #INSTALL_COMMAND         ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include && ${CMAKE_COMMAND} -E copy <BINARY_DIR>/libtz.so <INSTALL_DIR>/lib/libtz.so
     )
 
 ExternalProject_Get_property(${TARGET_NAME}_external INSTALL_DIR)

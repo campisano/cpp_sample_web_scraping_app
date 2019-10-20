@@ -53,13 +53,27 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/external/yaml)
 include_directories(${yaml_INCLUDE_DIRS})
 link_directories(${yaml_LIBRARY_DIRS})
 
-file(GLOB_RECURSE VAR_SOURCES ${PROJECT_SOURCE_DIR}/src/scraper/*.cpp)
-set(VAR_SOURCES ${VAR_SOURCES} ${PROJECT_SOURCE_DIR}/src/main.cpp)
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/cpputest)
+include_directories(${cpputest_INCLUDE_DIRS})
+link_directories(${cpputest_LIBRARY_DIRS})
 
-add_executable(${PROJECT_NAME} ${VAR_SOURCES})
+file(GLOB_RECURSE VAR_APP_SOURCES ${PROJECT_SOURCE_DIR}/src/${PROJECT_NAME}/*.cpp)
+file(GLOB_RECURSE VAR_TEST_SOURCES ${PROJECT_SOURCE_DIR}/src/test/*.cpp)
+
+add_library(common_objects OBJECT ${VAR_APP_SOURCES})
+
+add_executable(${PROJECT_NAME} $<TARGET_OBJECTS:common_objects> ${PROJECT_SOURCE_DIR}/src/main.cpp)
 add_dependencies(${PROJECT_NAME} json recycle)
 
 target_link_libraries(
     ${PROJECT_NAME} PUBLIC stdc++ pthread
     cpr curl restbed yaml sqlpp11-connector-postgresql pq
     curl ssl crypto)
+
+add_executable(${PROJECT_NAME}_test $<TARGET_OBJECTS:common_objects> ${VAR_TEST_SOURCES})
+add_dependencies(${PROJECT_NAME}_test json recycle)
+
+target_link_libraries(
+    ${PROJECT_NAME}_test PUBLIC stdc++ pthread
+    cpr curl restbed yaml sqlpp11-connector-postgresql pq
+    curl ssl crypto cpputest)

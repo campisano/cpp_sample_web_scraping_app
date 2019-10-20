@@ -3,6 +3,9 @@
 /external/asio/*
 !/external/asio/CMakeLists.txt
 
+/external/cpputest/*
+!/external/cpputest/CMakeLists.txt
+
 /external/cpr/*
 !/external/cpr/CMakeLists.txt
 

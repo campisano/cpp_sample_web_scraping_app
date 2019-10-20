@@ -1,12 +1,18 @@
 #!/bin/bash
 
 TARGET="$1"
+TEST="$2"
 APP_PATH="./build/${TARGET}/scraper"
 
 if test -z "${TARGET}"
 then
-    echo "Usage: "`basename $0`" <debug|release>" >&2
+    echo "Usage: "`basename $0`" <debug|release> [test]" >&2
     exit 1
+fi
+
+if test "${TEST}" = "test"
+then
+   APP_PATH="${APP_PATH}_test"
 fi
 
 if test ! -x "${APP_PATH}"

@@ -16,3 +16,4 @@ addons:
 script:
     - export CXX="g++-6"
     - make -e
+    - ./run.sh debug test

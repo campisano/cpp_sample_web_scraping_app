@@ -1,4 +1,4 @@
-###### *Tests:* linux: [![Build Status](https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Linux build")](https://travis-ci.org/campisano/cpp_sample_web_scraping_app)
+###### *Tests:* linux: [![Build Status](https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Linux build")](https://travis-ci.org/campisano/cpp_sample_web_scraping_app) [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/campisano/cpp_sample_web_scraping_app.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/campisano/cpp_sample_web_scraping_app/context:cpp)
 
 ---
 

@@ -13,6 +13,7 @@ fi
 if test "${TEST}" = "test"
 then
    APP_PATH="${APP_PATH}_test"
+   APP_OPT="-v"
 fi
 
 if test ! -x "${APP_PATH}"
@@ -29,6 +30,6 @@ do
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${D}"
 done
 
-exec "${APP_PATH}"
+exec "${APP_PATH}" "${APP_OPT}"
 
 # End

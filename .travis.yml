@@ -2,8 +2,6 @@ dist: xenial
 language: shell
 os: linux
 services: docker
-git:
-  depth: 1
 if: tag IS blank
 
 jobs:
@@ -12,31 +10,9 @@ jobs:
       if: branch != master
       install: skip
       script:
-        - docker pull debian:stretch-slim
-        - docker run --mount type=bind,source="$(pwd)",target=/repository debian:stretch-slim /bin/bash -c 'cd /repository; ./ci/build.sh' || travis_terminate 1
-        - docker run --mount type=bind,source="$(pwd)",target=/repository debian:stretch-slim /bin/bash -c 'cd /repository; ./ci/test.sh' || travis_terminate 1
+        - ./ci/build_and_test.sh || travis_terminate 1
     - stage: "Deliver"
       if: branch = master
       install: skip
       script:
-        # vars
-        - export PROJECT_NAME=$(./ci/get_project_name.sh)
-        - export PROJECT_VERSION=$(./ci/get_project_version.sh)
-        - export RELEASE_TAG="${PROJECT_NAME}-${PROJECT_VERSION}"
-        # grant docker login
-        - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin || travis_terminate 1
-        # push new tag, locking version and grant git write access
-        - git config user.name "${GIT_USERNAME}"
-        - git config user.email "${GIT_USEREMAIL}"
-        - git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_REPOSITORY_URL}"
-        - git fetch --tag
-        - git tag ${RELEASE_TAG} && git push origin tag ${RELEASE_TAG} || travis_terminate 1
-        # build docker image
-        - docker pull debian:stretch-slim || travis_terminate 1
-        - docker run --mount type=bind,source="$(pwd)",target=/repository debian:stretch-slim /bin/bash -c 'cd /repository; ./ci/build.sh' || travis_terminate 1
-        - docker run --mount type=bind,source="$(pwd)",target=/repository debian:stretch-slim /bin/bash -c 'cd /repository; ./ci/test.sh' || travis_terminate 1
-        - docker build -t "${DOCKER_REPOSITORY}:${RELEASE_TAG}" -f ci/docker/Dockerfile . || travis_terminate 1
-        # push image tags
-        - docker push "${DOCKER_REPOSITORY}:${RELEASE_TAG}" || travis_terminate 1
-        - docker tag "${DOCKER_REPOSITORY}:${RELEASE_TAG}" "${DOCKER_REPOSITORY}:${PROJECT_NAME}-latest" || travis_terminate 1
-        - docker push "${DOCKER_REPOSITORY}:${PROJECT_NAME}-latest" || travis_terminate 1
+        - ./ci/deliver.sh || travis_terminate 1

@@ -10,6 +10,7 @@ USER app:app
 COPY run.sh /srv/app/run.sh
 COPY build /srv/app/build
 COPY external /srv/app/external
+COPY resources /srv/app/resources
 
 WORKDIR /srv/app
 ENTRYPOINT ./run.sh release

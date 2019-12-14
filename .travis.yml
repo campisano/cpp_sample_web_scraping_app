@@ -10,9 +10,9 @@ jobs:
       if: branch != master
       install: skip
       script:
-        - ./ci/build_and_test.sh || travis_terminate 1
+        - ./ci/build_and_test.sh
     - stage: "Deliver"
       if: branch = master
       install: skip
       script:
-        - ./ci/deliver.sh || travis_terminate 1
+        - ./ci/deliver.sh

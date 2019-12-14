@@ -1,11 +1,12 @@
 ARG FROM_IMAGE
 FROM $FROM_IMAGE
 
-RUN apt-get -q update
-RUN apt-get -q -y install libssl1.0.2 libcurl3
-RUN apt-get clean
+RUN apt-get -qq update
+RUN apt-get -qq -y install libssl1.0.2 libcurl3 > /dev/null
+RUN apt-get -qq clean
 
-RUN mkdir -p /srv/app
+RUN useradd -r -U app -d /srv/app -m
+USER app:app
 COPY run.sh /srv/app/run.sh
 COPY build /srv/app/build
 

@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -o errtrace -o errexit -o nounset -o pipefail
+set -x -o errexit -o nounset -o pipefail
 
-apt-get -q update
-apt-get -q -y install gcc g++ make cmake libssl1.0-dev libcurl4-openssl-dev
-apt-get clean
+apt-get -qq -y update
+apt-get -qq -y install gcc g++ make cmake libssl1.0-dev libcurl4-openssl-dev > /dev/null
+apt-get -qq -y clean
+
 make -e release

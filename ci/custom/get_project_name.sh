@@ -2,4 +2,6 @@
 
 set -o errexit -o nounset -o pipefail
 
-echo cpp_sample_web_scraping_app
+NAME="cpp_sample_web_scraping_app"
+
+echo "${NAME}"

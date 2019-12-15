@@ -2,4 +2,6 @@
 
 set -o errexit -o nounset -o pipefail
 
-cat ./VERSION
+VERSION=$(cat ./VERSION)
+
+echo "${VERSION}"

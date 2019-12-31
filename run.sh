@@ -1,16 +1,16 @@
 #!/bin/bash
 
 TARGET="$1"
-TEST="$2"
+MODE="$2"
 APP_PATH="./build/${TARGET}/scraper"
 
 if test -z "${TARGET}"
 then
-    echo "Usage: "`basename $0`" <debug|release> [test]" >&2
+    echo "Usage: "`basename $0`" <release|debug> [test|perf]" >&2
     exit 1
 fi
 
-if test "${TEST}" = "test"
+if test "${MODE}" = "test"
 then
    APP_PATH="${APP_PATH}_test"
    APP_OPT="-v"
@@ -30,6 +30,19 @@ do
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${D}"
 done
 
-exec "${APP_PATH}" "${APP_OPT}"
+if test "${MODE}" = "perf"
+then
+    chmod_data()
+    {
+        test -f perf.data && chmod a+r perf.data
+        echo "(use 'perf report -g graph -s period,comm,dso,symbol' to analyze using TUI interface)"
+        echo "(or  'perf script | c++filt | gprof2dot.py -f perf | dot -Tpng -o output.png' to analyze using graphviz)"
+    }
+    rm -f perf.data
+    trap chmod_data SIGINT
+    perf record -q -e cycles -g --call-graph fp -- "${APP_PATH}" "${APP_OPT}" && chmod_data
+else
+    "${APP_PATH}" "${APP_OPT}"
+fi
 
 # End

@@ -1,6 +1,6 @@
 # Generic Makefile.inc for CMake interface
 #
-# v 1.2.1
+# v 1.2.2
 
 
 
@@ -31,15 +31,15 @@ $(shell find $(FORMAT_INC_DIRS) $(FORMAT_SRC_DIRS) -type f \( -name \*$(HEADER_E
 || echo "Warning: can't find astyle executable";
 	#&& astyle --style=ansi -r -n "./*.h" "./*.cpp" || echo "Warning: can't find astyle executable!";
 
-debug:		format
-	mkdir -p $(BUILD_PATH)/debug;
-	cd $(BUILD_PATH)/debug; cmake ../.. -DCMAKE_BUILD_TYPE=debug;
-	make -C $(BUILD_PATH)/debug;
-
 release:	format
 	mkdir -p $(BUILD_PATH)/release;
 	cd $(BUILD_PATH)/release; cmake ../.. -DCMAKE_BUILD_TYPE=release;
 	make -C $(BUILD_PATH)/release;
+
+debug:		format
+	mkdir -p $(BUILD_PATH)/debug;
+	cd $(BUILD_PATH)/debug; cmake ../.. -DCMAKE_BUILD_TYPE=debug;
+	make -C $(BUILD_PATH)/debug;
 
 install:	release
 	make -C $(BUILD_PATH)/release install;

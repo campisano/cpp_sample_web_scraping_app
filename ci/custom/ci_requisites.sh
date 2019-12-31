@@ -9,7 +9,7 @@ type -P git &>/dev/null || REQS="${REQS} git"
 
 if test -n "${REQS}"
 then
-    apt-get -qq -y update
-    apt-get -qq -y install ${REQS} > /dev/null
-    apt-get -qq -y clean
+    sudo apt-get -qq -y update
+    sudo apt-get -qq -y install ${REQS} > /dev/null
+    sudo apt-get -qq -y clean
 fi;

@@ -10,9 +10,14 @@ jobs:
       if: branch != master
       install: skip
       script:
-        - ./ci/build_and_test.sh
+        - ./ci/build.sh
+        - ./ci/test.sh
+        - ./ci/coverage.sh
     - stage: "Deliver"
       if: branch = master
       install: skip
       script:
+        - ./ci/build.sh
+        - ./ci/test.sh
         - ./ci/deliver.sh
+        - ./ci/coverage.sh

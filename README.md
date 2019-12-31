@@ -1,8 +1,13 @@
-###### *Tests:* linux: [![Build Status](https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Linux build")](https://travis-ci.org/campisano/cpp_sample_web_scraping_app) [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/campisano/cpp_sample_web_scraping_app.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/campisano/cpp_sample_web_scraping_app/context:cpp)
+[![Build Status][ci_img]][ci_link]
+[![Test Coverage][cov_img]][cov_link]
+[![Code Quality][cq_img]][cq_link]
 
----
-
-
+[ci_link]: https://travis-ci.org/campisano/cpp_sample_web_scraping_app
+[ci_img]: https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Build Status"
+[cov_link]: https://codecov.io/gh/campisano/cpp_sample_web_scraping_app
+[cov_img]: https://codecov.io/gh/campisano/cpp_sample_web_scraping_app/branch/master/graph/badge.svg "Test Coverage"
+[cq_link]: https://lgtm.com/projects/g/campisano/cpp_sample_web_scraping_app/context:cpp
+[cq_img]: https://img.shields.io/lgtm/grade/cpp/g/campisano/cpp_sample_web_scraping_app.svg?logo=lgtm&logoWidth=18 "Code Quality"
 
 # C++ sample REST application
 

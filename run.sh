@@ -14,6 +14,8 @@ if test "${MODE}" = "test"
 then
    APP_PATH="${APP_PATH}_test"
    APP_OPT="-v"
+else
+   APP_PATH="${APP_PATH}_exec"
 fi
 
 if test ! -x "${APP_PATH}"

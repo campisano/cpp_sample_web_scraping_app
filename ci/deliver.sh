@@ -3,10 +3,10 @@
 set -x -o errexit -o nounset -o pipefail
 
 # requisites
-./ci/custom/ci_requisites.sh
+./ci/install_ci_requisites.sh
 
 # vars
-export DOCKER_FROM_IMAGE=$(./ci/custom/get_docker_from_image.sh)
+export DOCKER_IMAGE=$(./ci/custom/get_docker_image_run.sh)
 export PROJECT_NAME=$(./ci/custom/get_project_name.sh)
 export PROJECT_VERSION=$(./ci/custom/get_project_version.sh)
 export RELEASE_TAG="${PROJECT_NAME}-${PROJECT_VERSION}"
@@ -23,9 +23,9 @@ git push origin tag ${RELEASE_TAG}
 
 # build docker image
 docker build \
-       --build-arg "FROM_IMAGE=${DOCKER_FROM_IMAGE=}" \
+       --build-arg "FROM_IMAGE=${DOCKER_IMAGE=}" \
        --tag "${DOCKER_REPOSITORY}:${RELEASE_TAG}" \
-       --file ci/docker/Dockerfile .
+       --file ci/custom/Dockerfile .
 
 # push image tags
 docker pull "${DOCKER_REPOSITORY}:${RELEASE_TAG}" &> /dev/null && echo "ERROR: docker image \"${DOCKER_REPOSITORY}:${RELEASE_TAG}\" already exists" && exit 1

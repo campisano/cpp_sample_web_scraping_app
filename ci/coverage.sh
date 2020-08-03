@@ -3,18 +3,19 @@
 set -x -o errexit -o nounset -o pipefail
 
 # requisites
-./ci/custom/ci_requisites.sh
+./ci/install_ci_requisites.sh
 
 # vars
-export DOCKER_FROM_IMAGE=$(./ci/custom/get_docker_from_image.sh)
+export DOCKER_IMAGE=$(./ci/custom/get_docker_image_run.sh)
 
 # get image
-docker pull "${DOCKER_FROM_IMAGE}"
+docker pull "${DOCKER_IMAGE}"
 
 # coverage code isolatedly
 docker run \
        --env COVERAGE_TOKEN \
-       --mount type=bind,source="$(pwd)",target=/repository \
-       "${DOCKER_FROM_IMAGE}" \
+       --mount type=bind,source="$(pwd)",target=/srv/repository \
+       --mount type=bind,source="${HOME}/.custom_cache/var/cache/apt/archives",target=/var/cache/apt/archives \
+       "${DOCKER_IMAGE}" \
        /bin/bash -c \
-       'cd /repository; ./ci/custom/internal_coverage.sh ${COVERAGE_TOKEN}'
+       'cd /srv/repository; ./ci/custom/internal_coverage.sh ${COVERAGE_TOKEN}'

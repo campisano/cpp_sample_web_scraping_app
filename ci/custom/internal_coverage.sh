@@ -5,11 +5,13 @@ set -x -o errexit -o nounset -o pipefail
 TOKEN="$1"
 
 export DEBIAN_FRONTEND=noninteractive
+
+rm -f /etc/apt/apt.conf.d/docker*
 apt-get -qq -y update
 apt-get -qq -y install --no-install-recommends apt-utils > /dev/null
-apt-get -qq -y install gcc g++ make cmake libssl1.0-dev libcurl4-openssl-dev > /dev/null
-apt-get -qq -y install libssl1.0.2 libcurl3 > /dev/null
-apt-get -qq -y install curl git lcov > /dev/null
+apt-get -qq -y install --no-install-recommends gcc g++ make cmake libssl1.0-dev libcurl4-openssl-dev > /dev/null
+apt-get -qq -y install --no-install-recommends libssl1.0.2 libcurl3 > /dev/null
+apt-get -qq -y install --no-install-recommends curl git lcov > /dev/null
 
 make -e debug
 

@@ -3,8 +3,9 @@ FROM $FROM_IMAGE
 
 RUN apt-get -qq update \
     && apt-get -qq -y install --no-install-recommends apt-utils > /dev/null \
-    && apt-get -qq -y install libssl1.0.2 libcurl3 > /dev/null \
-    && apt-get -qq clean
+    && apt-get -qq -y install --no-install-recommends make libssl1.0.2 libcurl3 > /dev/null \
+    && apt-get -qq clean \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* /usr/share/man/*
 
 RUN useradd -r -U app -d /srv/app -m
 USER app:app

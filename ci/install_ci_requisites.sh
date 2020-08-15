@@ -2,6 +2,7 @@
 
 set -o errexit -o nounset -o pipefail
 
+umask 0022
 mkdir -m 777 -p ${HOME}/.custom_cache/srv/cache
 mkdir -m 777 -p ${HOME}/.custom_cache/var/cache/apt/archives
 
@@ -10,12 +11,8 @@ REQS=""
 type -P docker &>/dev/null || REQS="${REQS} docker"
 type -P git &>/dev/null || REQS="${REQS} git"
 
-CUSTOM_REQS="`./ci/custom/get_ci_requisites.sh`"
-
-if test -n "${CUSTOM_REQS}"
-then
-    REQS="${REQS} ${CUSTOM_REQS}"
-fi
+REQS="${REQS} `./ci/custom/get_ci_requisites.sh`"
+REQS=`echo ${REQS}`
 
 if test -n "${REQS}"
 then

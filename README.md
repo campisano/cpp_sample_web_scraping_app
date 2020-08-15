@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/campisano/cpp_sample_web_scraping_app.svg?branch=master "Build Status")](https://travis-ci.org/campisano/cpp_sample_web_scraping_app)
 [![Test Coverage](https://codecov.io/gh/campisano/cpp_sample_web_scraping_app/branch/master/graph/badge.svg "Test Coverage")](https://codecov.io/gh/campisano/cpp_sample_web_scraping_app)
 [![Code Quality](https://img.shields.io/lgtm/grade/cpp/g/campisano/cpp_sample_web_scraping_app.svg "Code Quality")](https://lgtm.com/projects/g/campisano/cpp_sample_web_scraping_app/context:cpp)
+[![Sonar Coverage](https://sonarcloud.io/api/project_badges/measure?project=campisano/cpp_sample_web_scraping_app&metric=coverage)](https://sonarcloud.io/dashboard?id=campisano/cpp_sample_web_scraping_app)
+[![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=campisano/cpp_sample_web_scraping_app&metric=alert_status)](https://sonarcloud.io/dashboard?id=campisano/cpp_sample_web_scraping_app)
+
 [![Docker Hub](https://img.shields.io/docker/image-size/riccardocampisano/public/cpp_sample_web_scraping_app-latest?label=cpp_sample_web_scraping_app-latest&logo=docker)](https://hub.docker.com/r/riccardocampisano/public/tags?name=cpp_sample_web_scraping_app)
 
 # C++ sample REST application

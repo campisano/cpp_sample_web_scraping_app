@@ -20,6 +20,7 @@ jobs:
         - ./ci/build.sh
         - ./ci/test.sh
         - ./ci/coverage.sh
+        - ./ci/sonar.sh
     - stage: "Deliver"
       if: branch = master
       install: skip
@@ -28,3 +29,4 @@ jobs:
         - ./ci/test.sh
         - ./ci/deliver.sh
         - ./ci/coverage.sh
+        - ./ci/sonar.sh

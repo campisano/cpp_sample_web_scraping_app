@@ -21,8 +21,8 @@ public:
     std::shared_ptr<sqlpp::postgresql::connection> connection();
 
 private:
-    struct data;
-    data & m_data;
+    struct Data;
+    Data & m_data;
 };
 
 #endif

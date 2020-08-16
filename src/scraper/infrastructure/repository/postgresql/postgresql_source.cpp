@@ -6,7 +6,7 @@
 #include <sqlpp11/sqlpp11.h>
 #include <thread>
 
-struct PostgresqlSource::data
+struct PostgresqlSource::Data
 {
     struct lock_policy
     {
@@ -18,7 +18,7 @@ struct PostgresqlSource::data
     using Config = std::shared_ptr<sqlpp::postgresql::connection_config>;
     using Pool = recycle::shared_pool<Conn, lock_policy>;
 
-    data()
+    explicit Data()
     {
         auto make = [this]()->std::shared_ptr<Conn>
         {
@@ -34,17 +34,23 @@ struct PostgresqlSource::data
         pool = new Pool(make, recycle);
     }
 
-    ~data()
+    Data(const Data &) = delete;
+    Data(Data &&) = default;
+
+    ~Data()
     {
         delete pool;
     }
+
+    Data & operator=(const Data &) = delete;
+    Data & operator=(Data &&) = default;
 
     Pool * pool;
     Config config;
 };
 
 PostgresqlSource::PostgresqlSource(
-    const RepositoryConfig & _config) : m_data(*new data())
+    const RepositoryConfig & _config) : m_data(*new Data())
 {
     m_data.config = std::make_shared<sqlpp::postgresql::connection_config>();
     m_data.config->host = _config.host;

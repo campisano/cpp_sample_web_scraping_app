@@ -8,8 +8,8 @@ ExternalProject_Add(
     ${TARGET_NAME}_external
     DOWNLOAD_DIR            ${CMAKE_CURRENT_SOURCE_DIR}/download
     DOWNLOAD_NAME           ${TARGET_NAME}.zip
-    URL                     https://github.com/whoshuu/cpr/archive/1.3.0.zip
-    URL_HASH                MD5=b7fd66e8e8f59801e264a3b927cc6e48
+    URL                     https://github.com/whoshuu/cpr/archive/1.4.0.zip
+    URL_HASH                MD5=3b023f981a7c93d25b0c3832a5c68073
     SOURCE_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
     BINARY_DIR              ${CMAKE_CURRENT_BINARY_DIR}/build
     INSTALL_DIR             ${CMAKE_CURRENT_SOURCE_DIR}/install

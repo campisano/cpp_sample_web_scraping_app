@@ -23,7 +23,6 @@ do
 done
 
 lcov --directory "build/debug" --capture --output-file coverage.info
-ls -alt --color
 lcov --remove coverage.info "/usr/*" "`pwd`/external/*" "`pwd`/src/test/*" --output-file coverage.info
 lcov --list coverage.info
 

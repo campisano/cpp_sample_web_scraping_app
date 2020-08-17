@@ -21,9 +21,9 @@ unzip -d /srv/sonar -q -n /srv/cache/build-wrapper-linux-x86.zip
 wget -P /srv/cache -c -nv --no-check-certificate https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
 unzip -d /srv/sonar -q -n /srv/cache/sonar-scanner-cli-4.4.0.2170-linux.zip
 
-make -e debug
-make -e clean
 
+
+make -e clean
 /srv/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -e debug
 
 
@@ -32,11 +32,12 @@ make -e clean
 
 mkdir -p gcov
 cd gcov
-for F in `find ../build/debug/CMakeFiles -name '*.cpp.o'`;
+for F in `find ../build/debug/CMakeFiles -name '*.cpp.o'`
 do
-  gcov -p "${F}" > /dev/null;
+  gcov -p "${F}" > /dev/null
 done
 cd ..
+
 
 
 export SONAR_TOKEN
@@ -49,10 +50,9 @@ export SONAR_USER_HOME=/srv/cache/sonar
     -Dsonar.sources=src \
     -Dsonar.sourceEncoding=UTF-8 \
     -Dsonar.working.directory=.scannerwork \
-    -Dsonar.cfamily.threads=1 \
+    -Dsonar.cfamily.threads=2 \
     -Dsonar.cfamily.gcov.reportsPath=gcov \
     -Dsonar.cfamily.build-wrapper-output=bw-output \
     -Dsonar.cfamily.cache.enabled=false
 
 rm -rf bw-output gcov .scannerwork
-make distclean
